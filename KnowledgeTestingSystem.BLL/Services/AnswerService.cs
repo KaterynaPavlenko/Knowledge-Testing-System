@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
+﻿using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
 
 namespace KnowledgeTestingSystem.BLL.Services
 {
@@ -15,6 +10,5 @@ namespace KnowledgeTestingSystem.BLL.Services
         {
             _unitOfWork = unitOfWork;
         }
-
     }
 }

@@ -11,8 +11,8 @@ namespace KnowledgeTestingSystem.DAL.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
-        protected readonly TestingSystemDbContext _testingSystemDbContext;
         private readonly DbSet<TEntity> _entities;
+        protected readonly TestingSystemDbContext _testingSystemDbContext;
 
         public Repository(TestingSystemDbContext context)
         {
