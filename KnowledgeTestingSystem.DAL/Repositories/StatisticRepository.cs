@@ -1,0 +1,17 @@
+﻿using KnowledgeTestingSystem.DAL.Context;
+using KnowledgeTestingSystem.DAL.Entity;
+using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
+
+namespace KnowledgeTestingSystem.DAL.Repositories
+{
+    public class StatisticRepository : Repository<Statistic>, IStatisticRepository
+    {
+        /// <summary>
+        ///     Initializes a new instance of the StatisticRepository
+        /// </summary>
+        /// <param name="testingSystemDbContext">The context</param>
+        public StatisticRepository(TestingSystemDbContext testingSystemDbContext) : base(testingSystemDbContext)
+        {
+        }
+    }
+}
