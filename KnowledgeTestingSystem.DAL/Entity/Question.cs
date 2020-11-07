@@ -4,13 +4,16 @@ namespace KnowledgeTestingSystem.DAL.Entity
 {
     public class Question : BaseEntity
     {
-        private Question()
+        public Question()
         {
             Answers = new List<Answer>();
         }
 
         public string Text { get; set; }
         public string Image { get; set; }
+        public int QuestionsTypesId { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
+        public virtual QuestionsType QuestionsTypes { get; set; }
+
     }
 }

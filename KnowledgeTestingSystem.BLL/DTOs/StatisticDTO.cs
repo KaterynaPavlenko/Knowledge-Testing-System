@@ -8,5 +8,7 @@ namespace KnowledgeTestingSystem.BLL.DTOs
         public int CountCorrectAnswer { get; set; }
         public DateTime Date { get; set; }
         public int Mark { get; set; }
+        public string UserEntityId { get; set; }
+
     }
 }

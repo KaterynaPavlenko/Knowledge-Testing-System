@@ -4,7 +4,7 @@ namespace KnowledgeTestingSystem.DAL.Entity
 {
     public class QuestionsType : BaseEntity
     {
-        private QuestionsType()
+        public QuestionsType()
         {
             Questions = new List<Question>();
         }

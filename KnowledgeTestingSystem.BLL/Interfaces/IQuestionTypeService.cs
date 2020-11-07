@@ -22,18 +22,18 @@ namespace KnowledgeTestingSystem.BLL.Interfaces
         ///     Add a QuestionType using a QuestionType Object
         /// </summary>
         /// <param name="questionType">Question object</param>
-        bool Create(QuestionTypeDTO questionType);
+        void Create(QuestionTypeDTO questionType);
 
         /// <summary>
         ///     Update a QuestionType using a  Question Object
         /// </summary>
         /// <param name="questionType"> QuestionType object</param>
-        bool Update(QuestionTypeDTO questionType);
+        void Update(QuestionTypeDTO questionType);
 
         /// <summary>
         ///     Delete a  QuestionType by id
         /// </summary>
         /// <param name="id"> QuestionType id</param>
-        bool Delete(int id);
+        void Delete(int id);
     }
 }

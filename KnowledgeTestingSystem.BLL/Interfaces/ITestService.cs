@@ -22,18 +22,18 @@ namespace KnowledgeTestingSystem.BLL.Interfaces
         ///     Add a Test using a Test Object
         /// </summary>
         /// <param name="test">Test object</param>
-        bool Create(TestDTO test);
+        void Create(TestDTO test);
 
         /// <summary>
         ///     Update a test using a  test Object
         /// </summary>
         /// <param name="test"> Test object</param>
-        bool Update(TestDTO test);
+        void Update(TestDTO test);
 
         /// <summary>
         ///     Delete a test by id
         /// </summary>
         /// <param name="id"> Test id</param>
-        bool Delete(int id);
+        void Delete(int id);
     }
 }

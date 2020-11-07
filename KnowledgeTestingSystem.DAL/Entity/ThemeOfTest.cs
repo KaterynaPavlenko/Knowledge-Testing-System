@@ -4,13 +4,13 @@ namespace KnowledgeTestingSystem.DAL.Entity
 {
     public class ThemeOfTest : BaseEntity
     {
-        private ThemeOfTest()
+        public ThemeOfTest()
         {
-            ThemesOfTests = new List<ThemeOfTest>();
+            Tests = new List<Test>();
         }
 
         public string Theme { get; set; }
 
-        public virtual ICollection<ThemeOfTest> ThemesOfTests { get; set; }
+        public virtual ICollection<Test> Tests { get; set; }
     }
 }

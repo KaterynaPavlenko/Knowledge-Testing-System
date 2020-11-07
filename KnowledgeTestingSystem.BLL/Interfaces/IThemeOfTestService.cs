@@ -22,18 +22,18 @@ namespace KnowledgeTestingSystem.BLL.Interfaces
         ///     Add a ThemeOfTest using a Test Object
         /// </summary>
         /// <param name="test">ThemeOfTest object</param>
-        bool Create(ThemeOfTestDTO test);
+        void Create(ThemeOfTestDTO test);
 
         /// <summary>
         ///     Update a ThemeOfTest using a  test Object
         /// </summary>
         /// <param name="test"> ThemeOfTest object</param>
-        bool Update(ThemeOfTestDTO test);
+        void Update(ThemeOfTestDTO test);
 
         /// <summary>
         ///     Delete a ThemeOfTest by id
         /// </summary>
         /// <param name="id"> ThemeOfTest id</param>
-        bool Delete(int id);
+        void Delete(int id);
     }
 }

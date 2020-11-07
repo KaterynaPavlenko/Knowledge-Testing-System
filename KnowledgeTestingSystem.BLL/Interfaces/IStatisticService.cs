@@ -22,18 +22,18 @@ namespace KnowledgeTestingSystem.BLL.Interfaces
         ///     Add a Statistic using a Statistic Object
         /// </summary>
         /// <param name="statistic">Statistic object</param>
-        bool Create(StatisticDTO statistic);
+        void Create(StatisticDTO statistic);
 
         /// <summary>
         ///     Update a Statistic using a  Statistic Object
         /// </summary>
         /// <param name="statistic"> Statistic object</param>
-        bool Update(StatisticDTO statistic);
+        void Update(StatisticDTO statistic);
 
         /// <summary>
         ///     Delete a Statistic by id
         /// </summary>
         /// <param name="id"> Statistic id</param>
-        bool Delete(int id);
+        void Delete(int id);
     }
 }

@@ -22,18 +22,18 @@ namespace KnowledgeTestingSystem.BLL.Interfaces
         ///     Add a booking using a Booking Object
         /// </summary>
         /// <param name="answer">Booking object</param>
-        bool Create(AnswerDTO answer);
+        void Create(AnswerDTO answer);
 
         /// <summary>
         ///     Update an  Answer using a  Answer Object
         /// </summary>
         /// <param name="answer"> Answer object</param>
-        bool Update(AnswerDTO answer);
+        void Update(AnswerDTO answer);
 
         /// <summary>
         ///     Delete a  Answer by id
         /// </summary>
         /// <param name="id"> Answer id</param>
-        bool Delete(int id);
+        void Delete(int id);
     }
 }

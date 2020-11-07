@@ -47,6 +47,7 @@
     <Compile Include="DTOs\StatisticDTO.cs" />
     <Compile Include="DTOs\TestDTO.cs" />
     <Compile Include="DTOs\ThemeOfTestDTO.cs" />
+    <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interfaces\IAnswerService.cs" />
     <Compile Include="Interfaces\IQuestionService.cs" />
     <Compile Include="Interfaces\IQuestionTypeService.cs" />
