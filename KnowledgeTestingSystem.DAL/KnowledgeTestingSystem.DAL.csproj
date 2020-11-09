@@ -59,11 +59,11 @@
   <ItemGroup>
     <Compile Include="Context\TestingSystemContextInitializer.cs" />
     <Compile Include="Context\TestingSystemDbContext.cs" />
-    <Compile Include="Entity\Answer.cs" />
+    <Compile Include="Entity\ThemeOfTests.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
     <Compile Include="Entity\IBaseEntity.cs" />
     <Compile Include="Entity\Question.cs" />
-    <Compile Include="Entity\QuestionsType.cs" />
+    <Compile Include="Entity\QuestionType.cs" />
     <Compile Include="Entity\Statistic.cs" />
     <Compile Include="Entity\Test.cs" />
     <Compile Include="Entity\ThemeOfTest.cs" />

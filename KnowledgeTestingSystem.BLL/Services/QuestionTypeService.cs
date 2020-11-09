@@ -18,7 +18,7 @@ namespace KnowledgeTestingSystem.BLL.Services
 
         public void Create(QuestionTypeDTO questionType)
         {
-            _unitOfWork.QuestionTypes.Create(new QuestionsType
+            _unitOfWork.QuestionTypes.Create(new QuestionType
             {
                 Type = questionType.Type
             });
@@ -68,7 +68,7 @@ namespace KnowledgeTestingSystem.BLL.Services
             var foundQuestionType = _unitOfWork.QuestionTypes.GetById(questionType.Id);
             if (foundQuestionType == null)
                 throw new ValidationException("Not found question type for update", string.Empty);
-            var questionsType = new QuestionsType
+            var questionsType = new QuestionType
             {
                 Id = questionType.Id,
                 Type = questionType.Type

@@ -39,7 +39,7 @@ namespace KnowledgeTestingSystem.DAL.Repositories
 
         public void Update(TEntity updatedEntity)
         {
-            _entities.AddOrUpdate(updatedEntity);
+            _testingSystemDbContext.Entry(updatedEntity).State = EntityState.Modified;
         }
 
         public void Delete(int id)

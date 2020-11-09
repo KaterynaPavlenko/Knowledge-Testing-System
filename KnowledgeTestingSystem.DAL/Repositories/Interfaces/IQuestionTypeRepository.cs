@@ -2,7 +2,7 @@
 
 namespace KnowledgeTestingSystem.DAL.Repositories.Interfaces
 {
-    public interface IQuestionTypeRepository : IRepository<QuestionsType>
+    public interface IQuestionTypeRepository : IRepository<QuestionType>
     {
     }
 }

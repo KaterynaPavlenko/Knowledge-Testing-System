@@ -18,8 +18,6 @@ namespace KnowledgeTestingSystem.BLL.Services
 
         public void Create(QuestionDTO question)
         {
-            if (_unitOfWork.QuestionTypes.GetById(question.QuestionsTypesId) == null)
-                throw new ValidationException("Current question type does not exist", string.Empty);
             _unitOfWork.Questions.Create(new Question
             {
                 Image = question.Image,

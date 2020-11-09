@@ -13,7 +13,7 @@ namespace KnowledgeTestingSystem.DAL.Entity
         public string Image { get; set; }
         public int QuestionsTypesId { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
-        public virtual QuestionsType QuestionsTypes { get; set; }
+        public virtual QuestionType QuestionsTypes { get; set; }
 
     }
 }

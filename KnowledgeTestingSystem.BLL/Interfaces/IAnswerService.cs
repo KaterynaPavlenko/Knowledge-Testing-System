@@ -35,5 +35,9 @@ namespace KnowledgeTestingSystem.BLL.Interfaces
         /// </summary>
         /// <param name="id"> Answer id</param>
         void Delete(int id);
+        /// <summary>
+        ///     Save a test 
+        /// </summary>
+        void Save();
     }
 }

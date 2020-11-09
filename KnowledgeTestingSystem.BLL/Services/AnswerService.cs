@@ -18,8 +18,6 @@ namespace KnowledgeTestingSystem.BLL.Services
 
         public void Create(AnswerDTO answer)
         {
-            if (_unitOfWork.Questions.GetById(answer.QuestionId) == null)
-                throw new ValidationException("Current question does not exist", string.Empty);
             _unitOfWork.Answers.Create(new Answer
             {
                 Image = answer.Image,

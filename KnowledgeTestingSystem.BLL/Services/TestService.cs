@@ -68,9 +68,6 @@ namespace KnowledgeTestingSystem.BLL.Services
 
         public void Update(TestDTO testDTO)
         {
-            var foundTest = _unitOfWork.Tests.GetById(testDTO.Id);
-            if (foundTest == null)
-                throw new ValidationException("Not found test for update", string.Empty);
             var test = new Test
             {
                 Id = testDTO.Id,

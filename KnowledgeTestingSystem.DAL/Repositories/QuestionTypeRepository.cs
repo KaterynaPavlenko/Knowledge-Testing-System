@@ -4,7 +4,7 @@ using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
 
 namespace KnowledgeTestingSystem.DAL.Repositories
 {
-    public class QuestionTypeRepository : Repository<QuestionsType>, IQuestionTypeRepository
+    public class QuestionTypeRepository : Repository<QuestionType>, IQuestionTypeRepository
     {
         /// <summary>
         ///     Initializes a new instance of the QuestionTypeRepository
