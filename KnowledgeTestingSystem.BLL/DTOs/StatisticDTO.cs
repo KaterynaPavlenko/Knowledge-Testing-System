@@ -6,7 +6,8 @@ namespace KnowledgeTestingSystem.BLL.DTOs
     {
         public int Id { get; set; }
         public int CountCorrectAnswer { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DateTimeStart { get; set; }
+        public DateTime DateTimeEnd { get; set; }
         public int Mark { get; set; }
         public string UserEntityId { get; set; }
 

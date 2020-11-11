@@ -11,6 +11,7 @@ namespace KnowledgeTestingSystem.DAL.Entity
         public string Name { get; set; }
         public int ThemeOfTestId { get; set; }
 
+        public int TimeMinutes { get; set; }
         public virtual ThemeOfTest ThemeOfTest { get; set; }
         
         public virtual ICollection<Question> Questions { get; set; }

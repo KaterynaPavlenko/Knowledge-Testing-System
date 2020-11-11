@@ -23,7 +23,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                 UserEntityId = statistic.UserEntityId,
                 CountCorrectAnswer = statistic.CountCorrectAnswer,
                 Mark = statistic.Mark,
-                Date = statistic.Date
+                DateTimeStart = statistic.DateTimeStart,
+                DateTimeEnd = statistic.DateTimeEnd
             });
         }
 
@@ -46,7 +47,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                 {
                     Id = statisticEntity.Id,
                     CountCorrectAnswer = statisticEntity.CountCorrectAnswer,
-                    Date = statisticEntity.Date,
+                    DateTimeStart = statisticEntity.DateTimeStart,
+                    DateTimeEnd = statisticEntity.DateTimeEnd,
                     Mark = statisticEntity.Mark,
                     UserEntityId = statisticEntity.UserEntityId
                 };
@@ -66,7 +68,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                 Id = statisticEntity.Id,
                 Mark = statisticEntity.Mark,
                 CountCorrectAnswer = statisticEntity.CountCorrectAnswer,
-                Date = statisticEntity.Date,
+                DateTimeStart = statisticEntity.DateTimeStart,
+                DateTimeEnd = statisticEntity.DateTimeEnd,
                 UserEntityId = statisticEntity.UserEntityId
             };
             return statistic;
@@ -82,7 +85,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                 Id = statisticDTO.Id,
                 Mark = statisticDTO.Mark,
                 CountCorrectAnswer = statisticDTO.CountCorrectAnswer,
-                Date = statisticDTO.Date,
+                DateTimeStart = statisticDTO.DateTimeStart,
+                DateTimeEnd = statisticDTO.DateTimeEnd,
                 UserEntityId = statisticDTO.UserEntityId
             };
             _unitOfWork.Statistics.Update(statistic);
