@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using KnowledgeTestingSystem.DAL.Entity;
 using Microsoft.AspNet.Identity;
@@ -58,6 +59,71 @@ namespace KnowledgeTestingSystem.DAL.Context
             if (resultUser.Succeeded)
                 // add a role for the user
                 userManager.AddToRole(user.Id, newRoleClient.Name);
+
+            var tests= new List<Test>
+            {
+                new Test
+                {
+                    Id=1,
+                    Name = "First test",
+                    ThemeOfTestId = 1,
+                    TimeMinutes = 10,
+                    CoverImage = "~/Content/Image/compass.jpg"
+                },
+                new Test
+                {
+                    Id=2,
+                    Name = "Second test",
+                    ThemeOfTestId = 2,
+                    TimeMinutes = 13,
+                    CoverImage = "~/Content/Image/compass.jpg"
+
+                },
+                new Test
+                {
+                    Id=3,
+                    Name = "Third test",
+                    ThemeOfTestId = 1,
+                    TimeMinutes = 17,
+                    CoverImage = "~/Content/Image/geometry.jpg"
+
+                },
+                new Test
+                {
+                    Id=4,
+                    Name = "Fourth test",
+                    ThemeOfTestId = 2,
+                    TimeMinutes = 120,
+                    CoverImage = "~/Content/Image/geometry.jpg"
+
+                }
+
+        }; 
+            tests.ForEach(std => context.Tests.Add(std));
+            var themesOfTests =new List<ThemeOfTest>
+            {
+                new ThemeOfTest
+                {
+                    Id = 1,
+                    Theme = "Math"
+                },
+                new ThemeOfTest
+                {
+                    Id = 2,
+                    Theme = "Languages"
+                },
+                new ThemeOfTest
+                {
+                    Id = 3,
+                    Theme = "Geometry"
+                }, new ThemeOfTest
+                {
+                    Id = 4,
+                    Theme = "History"
+                }
+            };
+            themesOfTests.ForEach(std => context.ThemesOfTest.Add(std));
+            context.SaveChanges();
         }
     }
 }

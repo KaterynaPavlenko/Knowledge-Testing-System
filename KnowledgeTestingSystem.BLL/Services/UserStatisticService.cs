@@ -7,50 +7,54 @@ using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
 
 namespace KnowledgeTestingSystem.BLL.Services
 {
-    public class StatisticService : IStatisticService
+    public class UserStatisticService : IUserStatisticService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public StatisticService(IUnitOfWork unitOfWork)
+        public UserStatisticService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public void Create(StatisticDTO statistic)
+        public void Create(UserStatisticDTO statistic)
         {
-            _unitOfWork.Statistics.Create(new Statistic
+            _unitOfWork.UserStatistic.Create(new UserStatistic
             {
                 UserEntityId = statistic.UserEntityId,
                 CountCorrectAnswer = statistic.CountCorrectAnswer,
                 Mark = statistic.Mark,
                 DateTimeStart = statistic.DateTimeStart,
-                DateTimeEnd = statistic.DateTimeEnd
+                DateTimeEnd = statistic.DateTimeEnd,
+                TestId = statistic.TestId
+
             });
         }
 
         public void Delete(int id)
         {
-            var statistic = _unitOfWork.Statistics.GetById(id);
+            var statistic = _unitOfWork.UserStatistic.GetById(id);
             if (statistic == null)
                 throw new ValidationException("Not found statistic", string.Empty);
-            _unitOfWork.Statistics.Delete(id);
+            _unitOfWork.UserStatistic.Delete(id);
         }
 
-        public IEnumerable<StatisticDTO> GetAll()
+        public IEnumerable<UserStatisticDTO> GetAll()
         {
-            var entities = _unitOfWork.Statistics.GetAll();
+            var entities = _unitOfWork.UserStatistic.GetAll();
             if (entities == null) throw new ValidationException("Not found statistic", string.Empty);
-            var statisticsList = new List<StatisticDTO>();
+            var statisticsList = new List<UserStatisticDTO>();
             foreach (var statisticEntity in entities)
             {
-                var statistic = new StatisticDTO
+                var statistic = new UserStatisticDTO
                 {
                     Id = statisticEntity.Id,
                     CountCorrectAnswer = statisticEntity.CountCorrectAnswer,
                     DateTimeStart = statisticEntity.DateTimeStart,
                     DateTimeEnd = statisticEntity.DateTimeEnd,
                     Mark = statisticEntity.Mark,
-                    UserEntityId = statisticEntity.UserEntityId
+                    UserEntityId = statisticEntity.UserEntityId,
+                    TestId = statisticEntity.TestId
+
                 };
                 statisticsList.Add(statistic);
             }
@@ -58,29 +62,30 @@ namespace KnowledgeTestingSystem.BLL.Services
             return statisticsList;
         }
 
-        public StatisticDTO GetById(int id)
+        public UserStatisticDTO GetById(int id)
         {
-            var statisticEntity = _unitOfWork.Statistics.GetById(id);
+            var statisticEntity = _unitOfWork.UserStatistic.GetById(id);
             if (statisticEntity == null) throw new ValidationException("Not found statistic", string.Empty);
 
-            var statistic = new StatisticDTO
+            var statistic = new UserStatisticDTO
             {
                 Id = statisticEntity.Id,
                 Mark = statisticEntity.Mark,
                 CountCorrectAnswer = statisticEntity.CountCorrectAnswer,
                 DateTimeStart = statisticEntity.DateTimeStart,
                 DateTimeEnd = statisticEntity.DateTimeEnd,
-                UserEntityId = statisticEntity.UserEntityId
+                UserEntityId = statisticEntity.UserEntityId,
+                TestId = statisticEntity.TestId
             };
             return statistic;
         }
 
-        public void Update(StatisticDTO statisticDTO)
+        public void Update(UserStatisticDTO statisticDTO)
         {
-            var foundStatistic = _unitOfWork.Statistics.GetById(statisticDTO.Id);
+            var foundStatistic = _unitOfWork.UserStatistic.GetById(statisticDTO.Id);
             if (foundStatistic == null)
                 throw new ValidationException("Not found statistic for update", string.Empty);
-            var statistic = new Statistic
+            var statistic = new UserStatistic
             {
                 Id = statisticDTO.Id,
                 Mark = statisticDTO.Mark,
@@ -89,7 +94,7 @@ namespace KnowledgeTestingSystem.BLL.Services
                 DateTimeEnd = statisticDTO.DateTimeEnd,
                 UserEntityId = statisticDTO.UserEntityId
             };
-            _unitOfWork.Statistics.Update(statistic);
+            _unitOfWork.UserStatistic.Update(statistic);
         }
 
         public void Save()

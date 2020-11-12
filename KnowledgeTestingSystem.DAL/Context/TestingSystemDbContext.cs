@@ -14,7 +14,7 @@ namespace KnowledgeTestingSystem.DAL.Context
         public IDbSet<Answer> Answers { get; set; }
         public IDbSet<Question> Questions { get; set; }
         public IDbSet<QuestionType> QuestionsTypes { get; set; }
-        public IDbSet<Statistic> Statictics { get; set; }
+        public IDbSet<UserStatistic> UserStatistics { get; set; }
         public IDbSet<Test> Tests { get; set; }
         public IDbSet<ThemeOfTest> ThemesOfTest { get; set; }
 

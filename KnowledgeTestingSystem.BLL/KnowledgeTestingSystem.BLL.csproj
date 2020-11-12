@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,25 +47,28 @@
     <Compile Include="DTOs\AnswerDTO.cs" />
     <Compile Include="DTOs\QuestionDTO.cs" />
     <Compile Include="DTOs\QuestionTypeDTO.cs" />
-    <Compile Include="DTOs\StatisticDTO.cs" />
+    <Compile Include="DTOs\UserStatisticDTO.cs" />
     <Compile Include="DTOs\TestDTO.cs" />
     <Compile Include="DTOs\ThemeOfTestDTO.cs" />
+    <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interfaces\IAnswerService.cs" />
     <Compile Include="Interfaces\IQuestionService.cs" />
     <Compile Include="Interfaces\IQuestionTypeService.cs" />
-    <Compile Include="Interfaces\IStatisticService.cs" />
+    <Compile Include="Interfaces\IUserStatisticService.cs" />
     <Compile Include="Interfaces\ITestService.cs" />
     <Compile Include="Interfaces\IThemeOfTestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AnswerService.cs" />
     <Compile Include="Services\QuestionService.cs" />
     <Compile Include="Services\QuestionTypeService.cs" />
-    <Compile Include="Services\StatisticService.cs" />
+    <Compile Include="Services\UserStatisticService.cs" />
     <Compile Include="Services\TestService.cs" />
     <Compile Include="Services\ThemeOfTestService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KnowledgeTestingSystem.DAL\KnowledgeTestingSystem.DAL.csproj">
       <Project>{f9f3fda4-e2da-4d19-af2a-a6a134006ca8}</Project>

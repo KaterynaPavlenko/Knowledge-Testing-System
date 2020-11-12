@@ -3,32 +3,32 @@ using KnowledgeTestingSystem.BLL.DTOs;
 
 namespace KnowledgeTestingSystem.BLL.Interfaces
 {
-    public interface IStatisticService
+    public interface IUserStatisticService
     {
         /// <summary>
         ///     Getting all  Statistic
         /// </summary>
         /// <returns> QuestionType collection</returns>
-        IEnumerable<StatisticDTO> GetAll();
+        IEnumerable<UserStatisticDTO> GetAll();
 
         /// <summary>
         ///     Getting  Statistic Type by id
         /// </summary>
         /// <param name="id"> Statistic id</param>
         /// <returns>Statistic object</returns>
-        StatisticDTO GetById(int id);
+        UserStatisticDTO GetById(int id);
 
         /// <summary>
         ///     Add a Statistic using a Statistic Object
         /// </summary>
         /// <param name="statistic">Statistic object</param>
-        void Create(StatisticDTO statistic);
+        void Create(UserStatisticDTO statistic);
 
         /// <summary>
         ///     Update a Statistic using a  Statistic Object
         /// </summary>
         /// <param name="statistic"> Statistic object</param>
-        void Update(StatisticDTO statistic);
+        void Update(UserStatisticDTO statistic);
 
         /// <summary>
         ///     Delete a Statistic by id

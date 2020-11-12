@@ -2,7 +2,7 @@
 
 namespace KnowledgeTestingSystem.DAL.Repositories.Interfaces
 {
-    public interface IStatisticRepository : IRepository<Statistic>
+    public interface IUserStatisticRepository : IRepository<UserStatistic>
     {
     }
 }

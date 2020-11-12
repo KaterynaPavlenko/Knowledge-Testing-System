@@ -14,50 +14,53 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
     [TestClass]
     public class StatisticServiceTest
     {
-        private Mock<IRepository<Statistic>> _statisticRepository;
-        private IStatisticService _statisticService;
+        private Mock<IRepository<UserStatistic>> _statisticRepository;
+        private IUserStatisticService _statisticService;
         private Mock<IUnitOfWork> _unitOfWork;
-        private List<Statistic> statistics;
+        private List<UserStatistic> statistics;
 
         [TestInitialize]
         public void SetUp()
         {
-            statistics = new List<Statistic>
+            statistics = new List<UserStatistic>
             {
-               new Statistic
+               new UserStatistic
                 {
                 Id = 1,
                 Mark = 1,
                 CountCorrectAnswer = 1,
-                Date = DateTime.Now,
+                DateTimeEnd = DateTime.Now,
+                DateTimeStart = DateTime.Now,
                 UserEntityId = "1"
             },
-                new Statistic
+                new UserStatistic
                {
                Id = 2,
                Mark = 2,
                CountCorrectAnswer = 2,
-               Date = DateTime.Now,
+               DateTimeStart = DateTime.Now,
+               DateTimeEnd = DateTime.Today,
                UserEntityId = "2"
             },
-               new Statistic
+               new UserStatistic
                 {
                 Id = 3,
                 Mark = 3,
                 CountCorrectAnswer = 3,
-                Date = DateTime.Now,
+                DateTimeStart = DateTime.Now,
+                DateTimeEnd = DateTime.Today,
                 UserEntityId = "3"
             }
         };
             // Create a new mock of the repository
-            _statisticRepository = new Mock<IRepository<Statistic>>();
+            _statisticRepository = new Mock<IRepository<UserStatistic>>();
             _unitOfWork = new Mock<IUnitOfWork>();
             // Set up the mock for the repository
-            _unitOfWork.Setup(x => x.Statistics.GetAll()).Returns(statistics);
+            _unitOfWork.Setup(x => x.UserStatistic.GetAll()).Returns(statistics);
             _statisticRepository.Setup(x => x.GetAll())
                 .Returns(statistics);
             // Create the service and inject the repository into the service
-            _statisticService = new StatisticService(_unitOfWork.Object);
+            _statisticService = new UserStatisticService(_unitOfWork.Object);
         }
 
         [TestMethod]
@@ -74,16 +77,17 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
         public void StatisticService_Can_GetById_Valid_Statistic()
         {
             //Arrange
-            var expectedStatistic= new Statistic
+            var expectedStatistic= new UserStatistic
             {
                 Id = 1,
                 Mark = 1,
                 CountCorrectAnswer = 1,
-                Date = DateTime.Now,
+                DateTimeStart = DateTime.Now,
+                DateTimeEnd = DateTime.Today,
                 UserEntityId = "1"
             };
 
-            _unitOfWork.Setup(m => m.Statistics.GetById(expectedStatistic.Id)).Returns(expectedStatistic);
+            _unitOfWork.Setup(m => m.UserStatistic.GetById(expectedStatistic.Id)).Returns(expectedStatistic);
             // Act
             var actual = _statisticService.GetById(expectedStatistic.Id);
 
@@ -97,19 +101,19 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
         public void StatisticService_Can_Update_Statistic()
         {
             //Arrange
-            var statisticDto = new StatisticDTO
+            var statisticDto = new UserStatisticDTO
             {
                 Id = 3,
                 Mark = 5,
             };
-            _unitOfWork.Setup(m => m.Statistics.GetById(statisticDto.Id)).Returns(statistics.FirstOrDefault(x => x.Id == statisticDto.Id));
-            _unitOfWork.Setup(m => m.Statistics.Update(It.IsAny<Statistic>()));
+            _unitOfWork.Setup(m => m.UserStatistic.GetById(statisticDto.Id)).Returns(statistics.FirstOrDefault(x => x.Id == statisticDto.Id));
+            _unitOfWork.Setup(m => m.UserStatistic.Update(It.IsAny<UserStatistic>()));
             // Act
             _statisticService.Update(statisticDto);
             _statisticService.Save();
 
             // Assert
-            _unitOfWork.Verify(v => v.Statistics.Update(It.IsAny<Statistic>()), Times.Once());
+            _unitOfWork.Verify(v => v.UserStatistic.Update(It.IsAny<UserStatistic>()), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
         }
 
@@ -118,13 +122,13 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
         {
             //Arrange
             var DeletedID = 1;
-            _unitOfWork.Setup(m => m.Statistics.Delete(DeletedID));
-            _unitOfWork.Setup(m => m.Statistics.GetById(DeletedID)).Returns(statistics.FirstOrDefault(x => x.Id == DeletedID));
+            _unitOfWork.Setup(m => m.UserStatistic.Delete(DeletedID));
+            _unitOfWork.Setup(m => m.UserStatistic.GetById(DeletedID)).Returns(statistics.FirstOrDefault(x => x.Id == DeletedID));
             // Act
             _statisticService.Delete(DeletedID);
             _statisticService.Save();
             // Assert
-            _unitOfWork.Verify(v => v.Statistics.Delete(DeletedID), Times.Once());
+            _unitOfWork.Verify(v => v.UserStatistic.Delete(DeletedID), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
         }
 
@@ -132,18 +136,18 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
         public void StatisticService_Can_Create_Statistic()
         {
             //Arrange
-            var statisticDto = new StatisticDTO
+            var statisticDto = new UserStatisticDTO
             {
                 Id = 3,
                 Mark = 5,
             };
-            _unitOfWork.Setup(x => x.Statistics.Create(It.IsAny<Statistic>()));
-            _unitOfWork.Setup(m => m.Statistics.GetById(statisticDto.Id)).Returns(statistics.FirstOrDefault(x => x.Id == statisticDto.Id));
+            _unitOfWork.Setup(x => x.UserStatistic.Create(It.IsAny<UserStatistic>()));
+            _unitOfWork.Setup(m => m.UserStatistic.GetById(statisticDto.Id)).Returns(statistics.FirstOrDefault(x => x.Id == statisticDto.Id));
             // Act
             _statisticService.Create(statisticDto);
             _statisticService.Save();
             // Assert
-            _unitOfWork.Verify(v => v.Statistics.Create(It.IsAny<Statistic>()), Times.Once());
+            _unitOfWork.Verify(v => v.UserStatistic.Create(It.IsAny<UserStatistic>()), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
         }
 

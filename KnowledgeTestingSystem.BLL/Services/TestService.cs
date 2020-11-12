@@ -21,7 +21,10 @@ namespace KnowledgeTestingSystem.BLL.Services
             _unitOfWork.Tests.Create(new Test
             {
                 ThemeOfTestId = test.ThemeOfTestId,
-                Name = test.Name
+                Name = test.Name,
+                CoverImage = test.CoverImage,
+                TimeMinutes = test.TimeMinutes
+
             });
         }
 
@@ -45,7 +48,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                     Id = testEntity.Id,
                     ThemeOfTestId = testEntity.ThemeOfTestId,
                     Name = testEntity.Name,
-                    TimeMinutes = testEntity.TimeMinutes
+                    TimeMinutes = testEntity.TimeMinutes,
+                    CoverImage = testEntity.CoverImage
                 };
                 testList.Add(test);
             }
@@ -63,7 +67,9 @@ namespace KnowledgeTestingSystem.BLL.Services
                 Id = testEntity.Id,
                 Name = testEntity.Name,
                 ThemeOfTestId = testEntity.ThemeOfTestId,
-                TimeMinutes = testEntity.TimeMinutes
+                TimeMinutes = testEntity.TimeMinutes,
+                CoverImage = testEntity.CoverImage
+
 
             };
             return test;
@@ -76,7 +82,9 @@ namespace KnowledgeTestingSystem.BLL.Services
                 Id = testDTO.Id,
                 Name = testDTO.Name,
                 ThemeOfTestId = testDTO.ThemeOfTestId,
-                TimeMinutes = testDTO.TimeMinutes
+                TimeMinutes = testDTO.TimeMinutes,
+                CoverImage = testDTO.CoverImage
+
 
             };
             _unitOfWork.Tests.Update(test);

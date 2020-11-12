@@ -25,7 +25,7 @@ namespace KnowledgeTestingSystem.DAL.Repositories.Interfaces
         /// <summary>
         ///     Gets the specified repository for the Statistic
         /// </summary>
-        IStatisticRepository Statistics { get; }
+        IUserStatisticRepository UserStatistic { get; }
 
         /// <summary>
         ///     Gets the specified repository for the Test
