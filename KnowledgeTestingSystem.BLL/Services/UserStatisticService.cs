@@ -40,7 +40,7 @@ namespace KnowledgeTestingSystem.BLL.Services
 
         public IEnumerable<UserStatisticDTO> GetAll()
         {
-            var entities = _unitOfWork.UserStatistic.GetAll();
+            var entities = _unitOfWork.UserStatistic.GetAll(includeProperties:"Test , UserEntity");
             if (entities == null) throw new ValidationException("Not found statistic", string.Empty);
             var statisticsList = new List<UserStatisticDTO>();
             foreach (var statisticEntity in entities)

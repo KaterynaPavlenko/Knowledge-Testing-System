@@ -20,9 +20,16 @@ namespace KnowledgeTestingSystem.DAL.Repositories
             _entities = _testingSystemDbContext.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll(string includeProperties = "")
         {
-            return _entities.AsNoTracking().ToList();
+             IQueryable<TEntity> query = _entities;
+             foreach (var includeProperty in includeProperties.Split
+                 (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+             {
+                 query = query.Include(includeProperty);
+             }
+             return query.ToList();
+             
         }
 
         public TEntity GetById(int id)

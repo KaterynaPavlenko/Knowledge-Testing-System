@@ -11,7 +11,7 @@ namespace KnowledgeTestingSystem.DAL.Repositories.Interfaces
         ///     Get all entity
         /// </summary>
         /// <returns>T collection</returns>
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string includeProperties = "");
 
         /// <summary>
         ///     Get entity by id

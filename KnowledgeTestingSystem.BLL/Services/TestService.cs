@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using KnowledgeTestingSystem.BLL.DTOs;
 using KnowledgeTestingSystem.BLL.Infrastructure;
 using KnowledgeTestingSystem.BLL.Interfaces;
@@ -38,7 +39,7 @@ namespace KnowledgeTestingSystem.BLL.Services
 
         public IEnumerable<TestDTO> GetAll()
         {
-            var entities = _unitOfWork.Tests.GetAll();
+            var entities = _unitOfWork.Tests.GetAll(includeProperties: "ThemeOfTest");
             if (entities == null) throw new ValidationException("Not found test", string.Empty);
             var testList = new List<TestDTO>();
             foreach (var testEntity in entities)
@@ -49,7 +50,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                     ThemeOfTestId = testEntity.ThemeOfTestId,
                     Name = testEntity.Name,
                     TimeMinutes = testEntity.TimeMinutes,
-                    CoverImage = testEntity.CoverImage
+                    CoverImage = testEntity.CoverImage,
+                    ThemeOfTest = testEntity.ThemeOfTest.Theme
                 };
                 testList.Add(test);
             }

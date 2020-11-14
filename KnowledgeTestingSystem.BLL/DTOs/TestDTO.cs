@@ -6,6 +6,7 @@
         public string Name { get; set; }
         public int TimeMinutes { get; set; }
         public int ThemeOfTestId { get; set; }
+        public string ThemeOfTest { get; set; }
         public string CoverImage { get; set; }
 
 
