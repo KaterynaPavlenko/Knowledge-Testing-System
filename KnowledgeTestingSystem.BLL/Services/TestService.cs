@@ -63,16 +63,13 @@ namespace KnowledgeTestingSystem.BLL.Services
         {
             var testEntity = _unitOfWork.Tests.GetById(id);
             if (testEntity == null) throw new ValidationException("Not found test", string.Empty);
-
             var test = new TestDTO
             {
                 Id = testEntity.Id,
                 Name = testEntity.Name,
                 ThemeOfTestId = testEntity.ThemeOfTestId,
                 TimeMinutes = testEntity.TimeMinutes,
-                CoverImage = testEntity.CoverImage
-
-
+                CoverImage = testEntity.CoverImage,
             };
             return test;
         }

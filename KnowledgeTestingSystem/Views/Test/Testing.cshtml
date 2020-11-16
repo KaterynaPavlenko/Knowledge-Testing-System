@@ -1,0 +1,87 @@
+﻿@using System.IdentityModel.Metadata
+@model KnowledgeTestingSystem.Models.TestViewModel
+
+@{
+    ViewBag.Title = "Testing";
+}
+
+<h2>Testing</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    for (int i = 0; i < Model.Question.Count; i++)
+    {
+        @Html.HiddenFor(x=>x.Question[i].Id)
+       // <input id=@Model.Question[i].Id .Id name="Id" type="hidden" value=@Model.Question[i].Id />
+        <div class="form-group ">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.DisplayFor(modelItem => Model.Question[i].Text)
+
+                @if (Model.Question[i].Image != null)
+                {
+                    <div>
+                        @Html.DisplayFor(modelItem => Model.Question[i].Image)
+
+                    </div>
+
+                }
+            </div>
+            <div class="form-group ">
+                @for(int j=0;j<Model.Question[i].Answer.Count;j++)
+                //@foreach (var answer in Model.Question[i].Answer)
+                {
+                    @Html.CheckBoxFor(x=>x.Question[i].Answer[j].IsSelected)
+                   // @*@Html.RadioButtonFor(x=>x.Question[i].Answer[j].Selected , Model.Question[i].Answer[j].Id,new {Id=Model.Question[i].Answer[j].Id})//Model.Question[i].Answer[j].Text, false, new {id = Model.Question[i].Answer[j].Id})
+                    @Html.HiddenFor(x => x.Question[i].Answer[j].Id)
+                    @Html.HiddenFor(x => x.Question[i].Answer[j].IsCorrect)
+                    // <input id=@answer.Id name="Id" type="hidden" value=@answer.Id />
+                    <span>@Model.Question[i].Answer[j].Text</span>
+
+                    <br/>
+                }
+            </div>
+        </div>
+    }
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" value="Send" />
+    </div>
+}
+<script>
+    function countdown()
+    {
+        window.location.href= "@Url.Action("NotCompleteTest", "Test")";
+    }
+
+    var time = @Model.TimeMinutes * 60 * 1000;
+    setTimeout(function(){countdown();}, time);
+</script>
+
+@*@foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            @if (item.Image != null)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Image)
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @foreach (var answer in item.Answer)
+                {
+                    @Html.CheckBox(answer.Text, false, new { id = answer.Id })
+                    <span>@answer.Text</span>
+                    <br />
+                }
+            </td>
+        </tr>
+    }*@
+

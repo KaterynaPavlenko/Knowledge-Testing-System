@@ -44,8 +44,8 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _questionRepository = new Mock<IRepository<Question>>();
             _unitOfWork = new Mock<IUnitOfWork>();
             // Set up the mock for the repository
-            _unitOfWork.Setup(x => x.Questions.GetAll()).Returns(questions);
-            _questionRepository.Setup(x => x.GetAll())
+            _unitOfWork.Setup(x => x.Questions.GetAll("")).Returns(questions);
+            _questionRepository.Setup(x => x.GetAll(""))
                 .Returns(questions);
             // Create the service and inject the repository into the service
             _questionService = new QuestionService(_unitOfWork.Object);

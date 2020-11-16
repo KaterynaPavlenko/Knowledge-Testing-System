@@ -7,6 +7,7 @@ using AutoMapper;
 using KnowledgeTestingSystem.BLL.DTOs;
 using KnowledgeTestingSystem.BLL.Interfaces;
 using KnowledgeTestingSystem.Models;
+using PagedList;
 
 namespace KnowledgeTestingSystem.Controllers
 {
@@ -20,9 +21,17 @@ namespace KnowledgeTestingSystem.Controllers
             _testService = testService;
             _themeOfTestService = themeOfTestService;
         }
-        public ActionResult Index(string searchString)
+        [HttpGet]
+        public ActionResult Index(string searchString, string currentFilter, int? page)
         {
-
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
             var testsList = _testService.GetAll().ToList();
             var mapper =new MapperConfiguration(cfg=>cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
             var tests = mapper.Map<IEnumerable<TestDTO>, IEnumerable<TestViewModel>>(testsList);
@@ -32,7 +41,9 @@ namespace KnowledgeTestingSystem.Controllers
                 //Contains(searchString)||s.Name.ToLower().Contains(searchString)||s.Name.ToUpper().Contains(searchString)
                 //  || s.ThemeOfTest.Contains(searchString)|| s.ThemeOfTest.ToLower().Contains(searchString) || s.ThemeOfTest.ToUpper().Contains(searchString));
             }
-            return View(tests);
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(tests.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult About()

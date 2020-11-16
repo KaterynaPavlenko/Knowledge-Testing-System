@@ -27,27 +27,31 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                 {
                     Id = 1,
                     Name = "Test_1",
-                    ThemeOfTestId = 1
+                    ThemeOfTestId = 1,
+                    ThemeOfTest = new ThemeOfTest()
+
                 },
                 new Test
                 {
                     Id = 2,
                     Name = "Test_2",
-                    ThemeOfTestId = 1
+                    ThemeOfTestId = 1,
+                    ThemeOfTest = new ThemeOfTest()
                 },
                 new Test
                 {
                     Id = 3,
                     Name = "Test_3",
-                    ThemeOfTestId = 2
+                    ThemeOfTestId = 2,
+                    ThemeOfTest = new ThemeOfTest()
                 }
             };
             // Create a new mock of the repository
             _testRepository = new Mock<IRepository<Test>>();
             _unitOfWork = new Mock<IUnitOfWork>();
             // Set up the mock for the repository
-            _unitOfWork.Setup(x => x.Tests.GetAll()).Returns(tests);
-            _testRepository.Setup(x => x.GetAll())
+            _unitOfWork.Setup(x => x.Tests.GetAll("ThemeOfTest")).Returns(tests);
+            _testRepository.Setup(x => x.GetAll("ThemeOfTest"))
                 .Returns(tests);
             // Create the service and inject the repository into the service
             _testService = new TestService(_unitOfWork.Object);

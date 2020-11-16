@@ -44,8 +44,8 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _themeOfTestRepository = new Mock<IRepository<ThemeOfTest>>();
             _unitOfWork = new Mock<IUnitOfWork>();
             // Set up the mock for the repository
-            _unitOfWork.Setup(x => x.ThemesOfTest.GetAll()).Returns(themesOfTestsList);
-            _themeOfTestRepository.Setup(x => x.GetAll())
+            _unitOfWork.Setup(x => x.ThemesOfTest.GetAll("")).Returns(themesOfTestsList);
+            _themeOfTestRepository.Setup(x => x.GetAll(""))
                 .Returns(themesOfTestsList);
             // Create the service and inject the repository into the service
             _themeOfTestService = new ThemeOfTestService(_unitOfWork.Object);

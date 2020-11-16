@@ -45,7 +45,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                     Text = answerEntity.Text,
                     Id = answerEntity.Id,
                     Image = answerEntity.Image,
-                    QuestionId = answerEntity.QuestionId
+                    QuestionId = answerEntity.QuestionId,
+                    IsCorrect = answerEntity.IsCorrect
                 };
                 answers.Add(answer);
             }
@@ -63,7 +64,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                 Id = answerEntity.Id,
                 Image = answerEntity.Image,
                 QuestionId = answerEntity.QuestionId,
-                Text = answerEntity.Text
+                Text = answerEntity.Text,
+                IsCorrect = answerEntity.IsCorrect
             };
             return answer;
         }
@@ -78,7 +80,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                 Id = answerDTO.Id,
                 Text = answerDTO.Text,
                 QuestionId = answerDTO.QuestionId,
-                Image = answerDTO.Image
+                Image = answerDTO.Image,
+                IsCorrect = answerDTO.IsCorrect
             };
             _unitOfWork.Answers.Update(answer);
         }

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using KnowledgeTestingSystem.BLL.DTOs;
 
 namespace KnowledgeTestingSystem.Models
 {
@@ -19,10 +20,11 @@ namespace KnowledgeTestingSystem.Models
         [Display(Name = "Minutes")]
         [Range(1, 120, ErrorMessage = "Invalid value. Valid values are from 1 to 120")]
         public int TimeMinutes { get; set; }
+        [Display(Name = "Theme")]
         public string ThemeOfTest { get; set; }
         public string CoverImage { get; set; }
-
-
+        public DateTime StarTime { get; set; }
         public int ThemeOfTestId { get; set; }
+        public List<QuestionViewModel> Question { get; set; }
     }
 }

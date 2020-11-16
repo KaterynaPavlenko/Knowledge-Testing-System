@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using KnowledgeTestingSystem.BLL.DTOs;
 using KnowledgeTestingSystem.BLL.Infrastructure;
 using KnowledgeTestingSystem.BLL.Interfaces;
@@ -10,7 +11,6 @@ namespace KnowledgeTestingSystem.BLL.Services
     public class UserStatisticService : IUserStatisticService
     {
         private readonly IUnitOfWork _unitOfWork;
-
         public UserStatisticService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -80,6 +80,16 @@ namespace KnowledgeTestingSystem.BLL.Services
             return statistic;
         }
 
+        public UserStatisticDTO Result(TestDTO test)
+        {
+            var statistic = new UserStatisticDTO
+            {
+                TestId = test.Id,
+                CountCorrectAnswer = CountCorrectAnswer(test),
+                Mark = Mark(test)
+            };
+            return statistic;
+        }
         public void Update(UserStatisticDTO statisticDTO)
         {
             var foundStatistic = _unitOfWork.UserStatistic.GetById(statisticDTO.Id);
@@ -97,6 +107,31 @@ namespace KnowledgeTestingSystem.BLL.Services
             _unitOfWork.UserStatistic.Update(statistic);
         }
 
+        private int CountCorrectAnswer(TestDTO test)
+        {
+            int correctAnswer = 0;
+            var questions = _unitOfWork.Tests.GetById(test.Id).Questions.ToList();
+            foreach (var question in questions)
+            {
+                foreach (var answer in question.Answers)
+                {
+                    if (test.Question.First(x => x.Id == test.Id).Answer.First(x=>x.IsSelected).Id==answer.Id&&answer.IsCorrect)
+                        correctAnswer++;
+                }
+            }
+            return correctAnswer;
+        }
+        private int Mark(TestDTO test)
+        {
+            var correctAnswer = CountCorrectAnswer(test);
+            var countAnswers = 0;
+            foreach (var question in test.Question)
+            {
+                correctAnswer += question.Answer.Count();
+            }
+
+            return countAnswers - correctAnswer;
+        }
         public void Save()
         {
             _unitOfWork.Save();

@@ -63,7 +63,7 @@
     <Compile Include="Context\TestingSystemContextInitializer.cs" />
     <Compile Include="Context\TestingSystemDbContext.cs" />
     <Compile Include="Entity\TestStatistic.cs" />
-    <Compile Include="Entity\ThemeOfTests.cs" />
+    <Compile Include="Entity\Answer.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
     <Compile Include="Entity\IBaseEntity.cs" />
     <Compile Include="Entity\Question.cs" />

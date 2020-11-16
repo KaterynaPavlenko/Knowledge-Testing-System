@@ -1,4 +1,6 @@
-﻿namespace KnowledgeTestingSystem.BLL.DTOs
+﻿using System.Collections.Generic;
+
+namespace KnowledgeTestingSystem.BLL.DTOs
 {
     public class TestDTO
     {
@@ -8,6 +10,7 @@
         public int ThemeOfTestId { get; set; }
         public string ThemeOfTest { get; set; }
         public string CoverImage { get; set; }
+        public IEnumerable<QuestionDTO> Question { get; set; }
 
 
     }

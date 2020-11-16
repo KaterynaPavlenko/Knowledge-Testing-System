@@ -31,7 +31,9 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                 CountCorrectAnswer = 1,
                 DateTimeEnd = DateTime.Now,
                 DateTimeStart = DateTime.Now,
-                UserEntityId = "1"
+                UserEntityId = "1",
+                Test = new Test(),
+                UserEntity = new UserEntity()
             },
                 new UserStatistic
                {
@@ -40,7 +42,9 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                CountCorrectAnswer = 2,
                DateTimeStart = DateTime.Now,
                DateTimeEnd = DateTime.Today,
-               UserEntityId = "2"
+               UserEntityId = "2",
+               Test = new Test(),
+               UserEntity = new UserEntity()
             },
                new UserStatistic
                 {
@@ -49,15 +53,17 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                 CountCorrectAnswer = 3,
                 DateTimeStart = DateTime.Now,
                 DateTimeEnd = DateTime.Today,
-                UserEntityId = "3"
+                UserEntityId = "3",
+                Test = new Test(),
+                UserEntity = new UserEntity()
             }
         };
             // Create a new mock of the repository
             _statisticRepository = new Mock<IRepository<UserStatistic>>();
             _unitOfWork = new Mock<IUnitOfWork>();
             // Set up the mock for the repository
-            _unitOfWork.Setup(x => x.UserStatistic.GetAll()).Returns(statistics);
-            _statisticRepository.Setup(x => x.GetAll())
+            _unitOfWork.Setup(x => x.UserStatistic.GetAll( "Test , UserEntity")).Returns(statistics);
+            _statisticRepository.Setup(x => x.GetAll("Test , UserEntity"))
                 .Returns(statistics);
             // Create the service and inject the repository into the service
             _statisticService = new UserStatisticService(_unitOfWork.Object);

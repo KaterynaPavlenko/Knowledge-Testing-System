@@ -1,4 +1,5 @@
-﻿@model IEnumerable<KnowledgeTestingSystem.Models.TestViewModel>
+﻿@model PagedList.IPagedList<KnowledgeTestingSystem.Models.TestViewModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Home Page";
 }
@@ -9,11 +10,11 @@
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
     <p>
-        Find: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
+        Find: @Html.TextBox("SearchString",ViewBag.CurrentFilter as string)
+        <input type="submit" class="btn btn-primary btn-lg" value="Search" />
     </p>
 }
 <div class="container pt-4">
@@ -46,14 +47,24 @@
                             Theme of test:
                             @Html.DisplayFor(modelItem => item.ThemeOfTest)
                         </p>
+                        <p class="card-text">
+                            Time:
+                            @Html.DisplayFor(modelItem => item.TimeMinutes)
+                        </p>
                         <div class="btn-group">
-                            <input type="hidden" value=@item.Id name="id">
-                            <input class="btn btn-light" type="submit" value="Take" />
+                            @Html.ActionLink("Take", "InformAboutTest", "Test", new { Id = item.Id }, null) 
+                            @*<input type="hidden" value=@item.Id name="id">
+            <input class="btn btn-light" type="submit" value="Take" />*@
                         </div>
                     </div>
                 </div>
             }
         }
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, currentFilter = ViewBag.CurrentFilter }))
     </div>
 </div>
 

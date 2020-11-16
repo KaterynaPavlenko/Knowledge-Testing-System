@@ -60,47 +60,43 @@ namespace KnowledgeTestingSystem.DAL.Context
                 // add a role for the user
                 userManager.AddToRole(user.Id, newRoleClient.Name);
 
-            var tests= new List<Test>
+            var tests = new List<Test>
             {
                 new Test
                 {
-                    Id=1,
+                    Id = 1,
                     Name = "First test",
                     ThemeOfTestId = 1,
-                    TimeMinutes = 10,
+                    TimeMinutes = 1,
                     CoverImage = "~/Content/Image/compass.jpg"
                 },
                 new Test
                 {
-                    Id=2,
+                    Id = 2,
                     Name = "Second test",
                     ThemeOfTestId = 2,
                     TimeMinutes = 13,
                     CoverImage = "~/Content/Image/compass.jpg"
-
                 },
                 new Test
                 {
-                    Id=3,
+                    Id = 3,
                     Name = "Third test",
                     ThemeOfTestId = 1,
                     TimeMinutes = 17,
                     CoverImage = "~/Content/Image/geometry.jpg"
-
                 },
                 new Test
                 {
-                    Id=4,
+                    Id = 4,
                     Name = "Fourth test",
                     ThemeOfTestId = 2,
                     TimeMinutes = 120,
                     CoverImage = "~/Content/Image/geometry.jpg"
-
                 }
-
-        }; 
+            };
             tests.ForEach(std => context.Tests.Add(std));
-            var themesOfTests =new List<ThemeOfTest>
+            var themesOfTests = new List<ThemeOfTest>
             {
                 new ThemeOfTest
                 {
@@ -116,7 +112,8 @@ namespace KnowledgeTestingSystem.DAL.Context
                 {
                     Id = 3,
                     Theme = "Geometry"
-                }, new ThemeOfTest
+                },
+                new ThemeOfTest
                 {
                     Id = 4,
                     Theme = "History"
@@ -124,6 +121,82 @@ namespace KnowledgeTestingSystem.DAL.Context
             };
             themesOfTests.ForEach(std => context.ThemesOfTest.Add(std));
             context.SaveChanges();
+            var questionList = new List<Question>
+            {
+                new Question
+                {
+                    Id = 1,
+                    Text = "Что характеризует координатную ось?",
+                    TestId = 1
+                },
+                new Question
+                {
+                    Id = 2,
+                    Text = "Как расположено на координатной оси бОльшее из двух чисел?",
+                    TestId = 1
+                },
+                new Question
+                {
+                    Id = 3,
+                    TestId = 1
+                },
+                new Question
+                {
+                    Id = 4,
+                    TestId = 1
+                }
+            };
+            questionList.ForEach(std => context.Questions.Add(std));
+            context.SaveChanges();
+
+            var answers = new List<Answer>
+            {
+                new Answer
+                {
+                    Id = 1,
+                    Text = "Начало координат",
+                    QuestionId = 1,
+                    IsCorrect = true
+                },
+                new Answer
+                {
+                    Id = 2,
+                    Text = "Начало координат, единица масштаба и направление",
+                    IsCorrect = true,
+                    QuestionId = 1
+                },
+                new Answer
+                {
+                    Id = 3,
+                    Text = "Направление",
+                    IsCorrect = false,
+                    QuestionId = 1
+                },
+                new Answer
+                {
+                    Id = 4,
+                    Text = "Единица масштаба",
+                    IsCorrect = false,
+                    QuestionId = 1
+                }
+            };
+            answers.ForEach(std => context.Answers.Add(std));
+            context.SaveChanges();
+            var questionType=new List<QuestionType>
+            {
+                new QuestionType
+                {
+                    Id = 1
+                },
+                new QuestionType
+                {
+                    Id = 2
+                },new QuestionType
+                {
+                    Id = 3
+                }
+            };
+          
         }
     }
 }
