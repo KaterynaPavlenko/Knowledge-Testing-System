@@ -94,7 +94,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _unitOfWork.Setup(m => m.Answers.Update(It.IsAny<Answer>()));
             // Act
             _answerService.Update(answerDto);
-            _answerService.Save();
 
             // Assert
             _unitOfWork.Verify(v => v.Answers.Update(It.IsAny<Answer>()), Times.Once());
@@ -110,7 +109,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _unitOfWork.Setup(m => m.Answers.GetById(DeletedID)).Returns(answers.FirstOrDefault(x => x.Id == DeletedID));
             // Act
             _answerService.Delete(DeletedID);
-            _answerService.Save();
             // Assert
             _unitOfWork.Verify(v => v.Answers.Delete(DeletedID), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
@@ -129,7 +127,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _unitOfWork.Setup(m => m.Answers.GetById(answerDto.Id)).Returns(answers.FirstOrDefault(x => x.Id == answerDto.Id));
             // Act
             _answerService.Create(answerDto);
-            _answerService.Save();
             // Assert
             _unitOfWork.Verify(v => v.Answers.Create(It.IsAny<Answer>()), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());

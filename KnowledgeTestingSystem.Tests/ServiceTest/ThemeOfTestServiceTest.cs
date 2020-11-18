@@ -94,7 +94,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _unitOfWork.Setup(m => m.ThemesOfTest.Update(It.IsAny<ThemeOfTest>()));
             // Act
             _themeOfTestService.Update(themeOfTestDto);
-            _themeOfTestService.Save();
 
             // Assert
             _unitOfWork.Verify(v => v.ThemesOfTest.Update(It.IsAny<ThemeOfTest>()), Times.Once());
@@ -110,7 +109,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _unitOfWork.Setup(m => m.ThemesOfTest.GetById(DeletedID)).Returns(themesOfTestsList.FirstOrDefault(x => x.Id == DeletedID));
             // Act
             _themeOfTestService.Delete(DeletedID);
-            _themeOfTestService.Save();
             // Assert
             _unitOfWork.Verify(v => v.ThemesOfTest.Delete(DeletedID), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
@@ -129,7 +127,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _unitOfWork.Setup(m => m.ThemesOfTest.GetById(themeOfTestDto.Id)).Returns(themesOfTestsList.FirstOrDefault(x => x.Id == themeOfTestDto.Id));
             // Act
             _themeOfTestService.Create(themeOfTestDto);
-            _themeOfTestService.Save();
             // Assert
             _unitOfWork.Verify(v => v.ThemesOfTest.Create(It.IsAny<ThemeOfTest>()), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());

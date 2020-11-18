@@ -110,13 +110,11 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             var statisticDto = new UserStatisticDTO
             {
                 Id = 3,
-                Mark = 5,
             };
             _unitOfWork.Setup(m => m.UserStatistic.GetById(statisticDto.Id)).Returns(statistics.FirstOrDefault(x => x.Id == statisticDto.Id));
             _unitOfWork.Setup(m => m.UserStatistic.Update(It.IsAny<UserStatistic>()));
             // Act
             _statisticService.Update(statisticDto);
-            _statisticService.Save();
 
             // Assert
             _unitOfWork.Verify(v => v.UserStatistic.Update(It.IsAny<UserStatistic>()), Times.Once());
@@ -132,8 +130,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _unitOfWork.Setup(m => m.UserStatistic.GetById(DeletedID)).Returns(statistics.FirstOrDefault(x => x.Id == DeletedID));
             // Act
             _statisticService.Delete(DeletedID);
-            _statisticService.Save();
-            // Assert
             _unitOfWork.Verify(v => v.UserStatistic.Delete(DeletedID), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
         }
@@ -145,13 +141,11 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             var statisticDto = new UserStatisticDTO
             {
                 Id = 3,
-                Mark = 5,
             };
             _unitOfWork.Setup(x => x.UserStatistic.Create(It.IsAny<UserStatistic>()));
             _unitOfWork.Setup(m => m.UserStatistic.GetById(statisticDto.Id)).Returns(statistics.FirstOrDefault(x => x.Id == statisticDto.Id));
             // Act
             _statisticService.Create(statisticDto);
-            _statisticService.Save();
             // Assert
             _unitOfWork.Verify(v => v.UserStatistic.Create(It.IsAny<UserStatistic>()), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
