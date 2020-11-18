@@ -10,7 +10,5 @@ namespace KnowledgeTestingSystem.BLL.DTOs
         public int? QuestionsTypesId { get; set; }
         public int TestId { get; set; }
         public IEnumerable<AnswerDTO> Answer { get; set; }
-
-
     }
 }

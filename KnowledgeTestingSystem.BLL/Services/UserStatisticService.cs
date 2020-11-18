@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using KnowledgeTestingSystem.BLL.DTOs;
 using KnowledgeTestingSystem.BLL.Infrastructure;
 using KnowledgeTestingSystem.BLL.Interfaces;
@@ -11,6 +10,7 @@ namespace KnowledgeTestingSystem.BLL.Services
     public class UserStatisticService : IUserStatisticService
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public UserStatisticService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -22,12 +22,12 @@ namespace KnowledgeTestingSystem.BLL.Services
             {
                 UserEntityId = statistic.UserEntityId,
                 CountCorrectAnswer = statistic.CountCorrectAnswer,
-                Mark = statistic.Mark,
+                PercentCorrectAnswer = statistic.PercentCorrectAnswer,
                 DateTimeStart = statistic.DateTimeStart,
                 DateTimeEnd = statistic.DateTimeEnd,
                 TestId = statistic.TestId
-
             });
+            _unitOfWork.Save();
         }
 
         public void Delete(int id)
@@ -36,11 +36,12 @@ namespace KnowledgeTestingSystem.BLL.Services
             if (statistic == null)
                 throw new ValidationException("Not found statistic", string.Empty);
             _unitOfWork.UserStatistic.Delete(id);
+            _unitOfWork.Save();
         }
 
         public IEnumerable<UserStatisticDTO> GetAll()
         {
-            var entities = _unitOfWork.UserStatistic.GetAll(includeProperties:"Test , UserEntity");
+            var entities = _unitOfWork.UserStatistic.GetAll("Test , UserEntity");
             if (entities == null) throw new ValidationException("Not found statistic", string.Empty);
             var statisticsList = new List<UserStatisticDTO>();
             foreach (var statisticEntity in entities)
@@ -51,10 +52,9 @@ namespace KnowledgeTestingSystem.BLL.Services
                     CountCorrectAnswer = statisticEntity.CountCorrectAnswer,
                     DateTimeStart = statisticEntity.DateTimeStart,
                     DateTimeEnd = statisticEntity.DateTimeEnd,
-                    Mark = statisticEntity.Mark,
+                    PercentCorrectAnswer = statisticEntity.PercentCorrectAnswer,
                     UserEntityId = statisticEntity.UserEntityId,
                     TestId = statisticEntity.TestId
-
                 };
                 statisticsList.Add(statistic);
             }
@@ -70,7 +70,7 @@ namespace KnowledgeTestingSystem.BLL.Services
             var statistic = new UserStatisticDTO
             {
                 Id = statisticEntity.Id,
-                Mark = statisticEntity.Mark,
+                PercentCorrectAnswer = statisticEntity.PercentCorrectAnswer,
                 CountCorrectAnswer = statisticEntity.CountCorrectAnswer,
                 DateTimeStart = statisticEntity.DateTimeStart,
                 DateTimeEnd = statisticEntity.DateTimeEnd,
@@ -80,16 +80,6 @@ namespace KnowledgeTestingSystem.BLL.Services
             return statistic;
         }
 
-        public UserStatisticDTO Result(TestDTO test)
-        {
-            var statistic = new UserStatisticDTO
-            {
-                TestId = test.Id,
-                CountCorrectAnswer = CountCorrectAnswer(test),
-                Mark = Mark(test)
-            };
-            return statistic;
-        }
         public void Update(UserStatisticDTO statisticDTO)
         {
             var foundStatistic = _unitOfWork.UserStatistic.GetById(statisticDTO.Id);
@@ -98,42 +88,13 @@ namespace KnowledgeTestingSystem.BLL.Services
             var statistic = new UserStatistic
             {
                 Id = statisticDTO.Id,
-                Mark = statisticDTO.Mark,
+                PercentCorrectAnswer = statisticDTO.PercentCorrectAnswer,
                 CountCorrectAnswer = statisticDTO.CountCorrectAnswer,
                 DateTimeStart = statisticDTO.DateTimeStart,
                 DateTimeEnd = statisticDTO.DateTimeEnd,
                 UserEntityId = statisticDTO.UserEntityId
             };
             _unitOfWork.UserStatistic.Update(statistic);
-        }
-
-        private int CountCorrectAnswer(TestDTO test)
-        {
-            int correctAnswer = 0;
-            var questions = _unitOfWork.Tests.GetById(test.Id).Questions.ToList();
-            foreach (var question in questions)
-            {
-                foreach (var answer in question.Answers)
-                {
-                    if (test.Question.First(x => x.Id == test.Id).Answer.First(x=>x.IsSelected).Id==answer.Id&&answer.IsCorrect)
-                        correctAnswer++;
-                }
-            }
-            return correctAnswer;
-        }
-        private int Mark(TestDTO test)
-        {
-            var correctAnswer = CountCorrectAnswer(test);
-            var countAnswers = 0;
-            foreach (var question in test.Question)
-            {
-                correctAnswer += question.Answer.Count();
-            }
-
-            return countAnswers - correctAnswer;
-        }
-        public void Save()
-        {
             _unitOfWork.Save();
         }
     }

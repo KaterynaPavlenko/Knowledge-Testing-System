@@ -23,6 +23,7 @@ namespace KnowledgeTestingSystem.BLL.Services
                 Image = answer.Image,
                 Text = answer.Text
             });
+            _unitOfWork.Save();
         }
 
         public void Delete(int id)
@@ -31,6 +32,7 @@ namespace KnowledgeTestingSystem.BLL.Services
             if (answer == null)
                 throw new ValidationException("Not found answer", string.Empty);
             _unitOfWork.Answers.Delete(id);
+            _unitOfWork.Save();
         }
 
         public IEnumerable<AnswerDTO> GetAll()
@@ -84,10 +86,6 @@ namespace KnowledgeTestingSystem.BLL.Services
                 IsCorrect = answerDTO.IsCorrect
             };
             _unitOfWork.Answers.Update(answer);
-        }
-
-        public void Save()
-        {
             _unitOfWork.Save();
         }
     }

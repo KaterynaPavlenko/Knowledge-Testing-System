@@ -11,7 +11,5 @@ namespace KnowledgeTestingSystem.BLL.DTOs
         public string ThemeOfTest { get; set; }
         public string CoverImage { get; set; }
         public IEnumerable<QuestionDTO> Question { get; set; }
-
-
     }
 }

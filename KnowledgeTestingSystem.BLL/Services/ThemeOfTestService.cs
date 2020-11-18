@@ -30,6 +30,7 @@ namespace KnowledgeTestingSystem.BLL.Services
             if (themeOfTest == null)
                 throw new ValidationException("Not found theme of test", string.Empty);
             _unitOfWork.ThemesOfTest.Delete(id);
+            _unitOfWork.Save();
         }
 
         public IEnumerable<ThemeOfTestDTO> GetAll()
@@ -74,10 +75,6 @@ namespace KnowledgeTestingSystem.BLL.Services
                 Theme = themeOfTestDTO.Theme
             };
             _unitOfWork.ThemesOfTest.Update(themeOfTest);
-        }
-
-        public void Save()
-        {
             _unitOfWork.Save();
         }
     }

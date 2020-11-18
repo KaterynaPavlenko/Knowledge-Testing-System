@@ -22,6 +22,7 @@ namespace KnowledgeTestingSystem.BLL.Services
             {
                 Type = questionType.Type
             });
+            _unitOfWork.Save();
         }
 
         public void Delete(int id)
@@ -30,6 +31,7 @@ namespace KnowledgeTestingSystem.BLL.Services
             if (questionsType == null)
                 throw new ValidationException("Not found question type", string.Empty);
             _unitOfWork.QuestionTypes.Delete(id);
+            _unitOfWork.Save();
         }
 
         public IEnumerable<QuestionTypeDTO> GetAll()
@@ -74,10 +76,6 @@ namespace KnowledgeTestingSystem.BLL.Services
                 Type = questionType.Type
             };
             _unitOfWork.QuestionTypes.Update(questionsType);
-        }
-
-        public void Save()
-        {
             _unitOfWork.Save();
         }
     }

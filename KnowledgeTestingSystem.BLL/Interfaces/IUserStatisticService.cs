@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using KnowledgeTestingSystem.BLL.DTOs;
-using KnowledgeTestingSystem.DAL.Entity;
 
 namespace KnowledgeTestingSystem.BLL.Interfaces
 {
@@ -30,20 +29,12 @@ namespace KnowledgeTestingSystem.BLL.Interfaces
         /// </summary>
         /// <param name="statistic"> Statistic object</param>
         void Update(UserStatisticDTO statistic);
+
         /// <summary>
-        /// Calculate Statistic
+        ///     Calculate Statistic
         /// </summary>
         /// <param name="test">Test object</param>
         /// <returns></returns>
-        UserStatisticDTO Result(TestDTO test);
-        /// <summary>
-        ///     Delete a Statistic by id
-        /// </summary>
-        /// <param name="id"> Statistic id</param>
         void Delete(int id);
-        /// <summary>
-        ///     Save a test 
-        /// </summary>
-        void Save();
     }
 }

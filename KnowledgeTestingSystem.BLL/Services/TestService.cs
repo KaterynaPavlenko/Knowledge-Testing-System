@@ -19,14 +19,22 @@ namespace KnowledgeTestingSystem.BLL.Services
 
         public void Create(TestDTO test)
         {
+            ThemeOfTest theme;
+            var foundTheme = _unitOfWork.ThemesOfTest.GetAll().FirstOrDefault(x => x.Theme == test.ThemeOfTest);
+            if (foundTheme == null)
+            {
+                theme = new ThemeOfTest {Theme = test.ThemeOfTest};
+                _unitOfWork.ThemesOfTest.Create(theme);
+            }
+
             _unitOfWork.Tests.Create(new Test
             {
                 ThemeOfTestId = test.ThemeOfTestId,
                 Name = test.Name,
                 CoverImage = test.CoverImage,
                 TimeMinutes = test.TimeMinutes
-
             });
+            _unitOfWork.Save();
         }
 
         public void Delete(int id)
@@ -35,11 +43,12 @@ namespace KnowledgeTestingSystem.BLL.Services
             if (test == null)
                 throw new ValidationException("Not found test", string.Empty);
             _unitOfWork.Tests.Delete(id);
+            _unitOfWork.Save();
         }
 
         public IEnumerable<TestDTO> GetAll()
         {
-            var entities = _unitOfWork.Tests.GetAll(includeProperties: "ThemeOfTest");
+            var entities = _unitOfWork.Tests.GetAll("ThemeOfTest");
             if (entities == null) throw new ValidationException("Not found test", string.Empty);
             var testList = new List<TestDTO>();
             foreach (var testEntity in entities)
@@ -70,6 +79,7 @@ namespace KnowledgeTestingSystem.BLL.Services
                 ThemeOfTestId = testEntity.ThemeOfTestId,
                 TimeMinutes = testEntity.TimeMinutes,
                 CoverImage = testEntity.CoverImage,
+                ThemeOfTest = testEntity.ThemeOfTest.Theme
             };
             return test;
         }
@@ -83,14 +93,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                 ThemeOfTestId = testDTO.ThemeOfTestId,
                 TimeMinutes = testDTO.TimeMinutes,
                 CoverImage = testDTO.CoverImage
-
-
             };
             _unitOfWork.Tests.Update(test);
-        }
-
-        public void Save()
-        {
             _unitOfWork.Save();
         }
     }
