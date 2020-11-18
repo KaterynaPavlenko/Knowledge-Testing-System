@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="card border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="row justify-content-center">
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray mb-4">@ViewBag.Title</h1>
+                        <dl class="dl-horizontal">
+                            <dt>Tests:</dt>
+                            <dd>
+                                [
+                                @Html.ActionLink("Tests", "GetTests", "Test")
+                                ]
+                            </dd>
+
+
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,9 @@
-﻿using Microsoft.Owin;
+﻿using KnowledgeTestingSystem;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(KnowledgeTestingSystem.Startup))]
+[assembly: OwinStartupAttribute(typeof(Startup))]
+
 namespace KnowledgeTestingSystem
 {
     public partial class Startup

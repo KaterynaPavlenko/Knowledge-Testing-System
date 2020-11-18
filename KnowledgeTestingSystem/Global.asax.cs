@@ -1,19 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using KnowledgeTestingSystem.BLL.Infrastructure;
-using KnowledgeTestingSystem.Infrastructure;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;
 
 namespace KnowledgeTestingSystem
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {

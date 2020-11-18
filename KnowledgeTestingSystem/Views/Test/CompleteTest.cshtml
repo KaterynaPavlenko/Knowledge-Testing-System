@@ -1,0 +1,49 @@
+﻿@model KnowledgeTestingSystem.Models.UserStatisticViewModel
+
+@{
+    ViewBag.Title = "CompleteTest";
+}
+
+<h2>CompleteTest</h2>
+
+<div>
+    <h4>UserStatisticViewModel</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CountCorrectAnswer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CountCorrectAnswer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTimeStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTimeStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTimeEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTimeEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PercentCorrectAnswer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PercentCorrectAnswer)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</p>

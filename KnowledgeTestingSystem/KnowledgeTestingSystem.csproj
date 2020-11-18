@@ -213,10 +213,10 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -399,6 +399,12 @@
     <Content Include="Views\Test\InformAboutTest.cshtml" />
     <Content Include="Views\Test\Testing.cshtml" />
     <Content Include="Views\Test\NotCompleteTest.cshtml" />
+    <Content Include="Views\Test\CompleteTest.cshtml" />
+    <Content Include="Views\Test\Test.cshtml" />
+    <Content Include="Views\Test\GetTests.cshtml" />
+    <Content Include="Views\Test\CreateTest.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Test\DeleteTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -417,6 +423,10 @@
     <ProjectReference Include="..\KnowledgeTestingSystem.BLL\KnowledgeTestingSystem.BLL.csproj">
       <Project>{487d485a-03b4-4f08-8079-58c3bc597ba4}</Project>
       <Name>KnowledgeTestingSystem.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KnowledgeTestingSystem.DAL\KnowledgeTestingSystem.DAL.csproj">
+      <Project>{F9F3FDA4-E2DA-4D19-AF2A-A6A134006CA8}</Project>
+      <Name>KnowledgeTestingSystem.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

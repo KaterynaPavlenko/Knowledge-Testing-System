@@ -1,9 +1,7 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
+﻿body { padding-bottom: 20px; }
 
 /* Set padding to keep content from hitting the edges */
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -12,16 +10,14 @@
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
-.dl-horizontal dt {
-    white-space: normal;
-}
+
+.dl-horizontal dt { white-space: normal; }
 
 /* Set width on the form input elements since they're 100% wide by default */
+
 input,
 select,
-textarea {
-    max-width: 280px;
-}
+textarea { max-width: 280px; }
 
 .bg {
     background-image: url(Image/sea.jpg);
@@ -55,9 +51,7 @@ textarea {
     width: 100%;
 }
 
-.btn-square {
-    border-radius: 0;
-}
+.btn-square { border-radius: 0; }
 
 .btn-vertical {
     padding-bottom: 1rem;
@@ -70,9 +64,7 @@ textarea {
     min-width: 100%;
 }
 
-.grid-menu-3col {
-    box-sizing: border-box;
-}
+.grid-menu-3col { box-sizing: border-box; }
 
 .search-form {
     background-color: #d3f2ea;
@@ -97,9 +89,7 @@ textarea {
     padding: 1.5rem 1rem;
 }
 
-.form-register {
-    box-sizing: border-box;
-}
+.form-register { box-sizing: border-box; }
 
 .form-register-btn {
     border-radius: 10rem;
@@ -107,9 +97,7 @@ textarea {
     padding: .75rem 1rem;
 }
 
-.text-gray {
-    color: #3a3b45;
-}
+.text-gray { color: #3a3b45; }
 
 
 .body-content {
@@ -117,6 +105,4 @@ textarea {
     padding-right: 15px;
 }
 
-.footer-custom {
-    color: #2f4f4f;
-}
+.footer-custom { color: #2f4f4f; }

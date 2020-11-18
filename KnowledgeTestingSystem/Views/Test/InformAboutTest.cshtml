@@ -41,7 +41,7 @@
                         @Html.DisplayFor(model => model.TimeMinutes)
                     </p>
                     <div class="btn-group">
-                        @Html.ActionLink("Take", "Testing", "Test", new { Id = Model.Id }, null) |
+                        @Html.ActionLink("Take", "Testing", "Test", new {Model.Id}, null) |
                         @*<input type="hidden" value=@Model.Id name="Id">
                         <input class="btn btn-light" type="submit" value="Take" />*@
                     </div>
