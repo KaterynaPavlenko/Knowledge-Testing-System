@@ -22,7 +22,8 @@ namespace KnowledgeTestingSystem.BLL.Services
             {
                 Image = question.Image,
                 Text = question.Text,
-                QuestionsTypesId = question.QuestionsTypesId
+                QuestionsTypesId = question.QuestionsTypesId,
+                TestId = question.TestId
             });
             _unitOfWork.Save();
         }
@@ -43,15 +44,16 @@ namespace KnowledgeTestingSystem.BLL.Services
             var questions = new List<QuestionDTO>();
             foreach (var questionEntity in entities)
             {
-                var answer = new QuestionDTO
+                
+                var question = new QuestionDTO
                 {
                     Text = questionEntity.Text,
                     Id = questionEntity.Id,
                     Image = questionEntity.Image,
                     QuestionsTypesId = questionEntity.QuestionsTypesId,
-                    TestId = questionEntity.TestId
+                    TestId = questionEntity.TestId,
                 };
-                questions.Add(answer);
+                questions.Add(question);
             }
 
             return questions;

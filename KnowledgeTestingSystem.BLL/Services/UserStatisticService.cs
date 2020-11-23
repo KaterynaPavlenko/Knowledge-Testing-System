@@ -54,7 +54,9 @@ namespace KnowledgeTestingSystem.BLL.Services
                     DateTimeEnd = statisticEntity.DateTimeEnd,
                     PercentCorrectAnswer = statisticEntity.PercentCorrectAnswer,
                     UserEntityId = statisticEntity.UserEntityId,
-                    TestId = statisticEntity.TestId
+                    TestId = statisticEntity.TestId,
+                    Test = statisticEntity.Test.Name
+
                 };
                 statisticsList.Add(statistic);
             }

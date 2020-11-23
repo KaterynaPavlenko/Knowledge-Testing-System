@@ -5,6 +5,7 @@ using KnowledgeTestingSystem.BLL.Infrastructure;
 using KnowledgeTestingSystem.BLL.Interfaces;
 using KnowledgeTestingSystem.DAL.Entity;
 using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
+using Ninject.Infrastructure.Language;
 
 namespace KnowledgeTestingSystem.BLL.Services
 {
@@ -32,7 +33,7 @@ namespace KnowledgeTestingSystem.BLL.Services
                 ThemeOfTestId = test.ThemeOfTestId,
                 Name = test.Name,
                 CoverImage = test.CoverImage,
-                TimeMinutes = test.TimeMinutes
+                TimeMinutes = test.TimeMinutes,
             });
             _unitOfWork.Save();
         }
@@ -60,7 +61,7 @@ namespace KnowledgeTestingSystem.BLL.Services
                     Name = testEntity.Name,
                     TimeMinutes = testEntity.TimeMinutes,
                     CoverImage = testEntity.CoverImage,
-                    ThemeOfTest = testEntity.ThemeOfTest.Theme
+                    ThemeOfTest = testEntity.ThemeOfTest.Theme,
                 };
                 testList.Add(test);
             }
@@ -86,6 +87,13 @@ namespace KnowledgeTestingSystem.BLL.Services
 
         public void Update(TestDTO testDTO)
         {
+            ThemeOfTest theme;
+            var foundTheme = _unitOfWork.ThemesOfTest.GetAll().FirstOrDefault(x => x.Theme == testDTO.ThemeOfTest);
+            if (foundTheme == null)
+            {
+                theme = new ThemeOfTest { Theme = testDTO.ThemeOfTest };
+                _unitOfWork.ThemesOfTest.Create(theme);
+            }
             var test = new Test
             {
                 Id = testDTO.Id,

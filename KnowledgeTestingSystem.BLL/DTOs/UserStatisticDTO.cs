@@ -10,6 +10,8 @@ namespace KnowledgeTestingSystem.BLL.DTOs
         public DateTime DateTimeEnd { get; set; }
         public double PercentCorrectAnswer { get; set; }
         public int TestId { get; set; }
+        public string Test { get; set; }
+        public string User { get; set; }
         public string UserEntityId { get; set; }
     }
 }

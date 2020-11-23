@@ -29,7 +29,6 @@ namespace KnowledgeTestingSystem.DAL.Repositories
                  query = query.Include(includeProperty);
              }
              return query.ToList();
-             
         }
 
         public TEntity GetById(int id)

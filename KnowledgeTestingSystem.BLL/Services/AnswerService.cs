@@ -21,7 +21,8 @@ namespace KnowledgeTestingSystem.BLL.Services
             _unitOfWork.Answers.Create(new Answer
             {
                 Image = answer.Image,
-                Text = answer.Text
+                Text = answer.Text,
+                QuestionId = answer.QuestionId
             });
             _unitOfWork.Save();
         }
