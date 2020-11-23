@@ -20,11 +20,13 @@ namespace KnowledgeTestingSystem.Models
         [Range(1, 120, ErrorMessage = "Invalid value. Valid values are from 1 to 120")]
         public int TimeMinutes { get; set; }
 
-        [Display(Name = "Theme")] public string ThemeOfTest { get; set; }
-
+        [Display(Name = "Theme")]
+        public string ThemeOfTest { get; set; }
+        [Display(Name = "Cover Image")]
         public string CoverImage { get; set; }
 
-        [Display(Name = "Star Time")] public DateTime StarTime { get; set; }
+        [Display(Name = "Star Time")] 
+        public DateTime StarTime { get; set; }
 
         public int ThemeOfTestId { get; set; }
         public List<QuestionViewModel> Question { get; set; }

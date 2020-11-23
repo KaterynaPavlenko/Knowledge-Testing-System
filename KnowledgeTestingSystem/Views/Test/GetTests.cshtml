@@ -4,7 +4,7 @@
     ViewBag.Title = "GetTests";
 }
 
-<h2>GetTests</h2>
+<h2>Tests</h2>
 
 <p>
     @Html.ActionLink("Create New", "CreateTest")
@@ -38,7 +38,7 @@
                 @Html.DisplayFor(modelItem => item.ThemeOfTest)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Edit", "UpdateTest", new {id = item.Id}) |
                 @Html.ActionLink("Delete", "DeleteTest", new {id = item.Id})
             </td>
         </tr>

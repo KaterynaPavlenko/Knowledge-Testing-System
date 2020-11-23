@@ -22,7 +22,7 @@ namespace KnowledgeTestingSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(string searchString, string currentFilter, int? page)
+        public ActionResult Index(string searchString, string currentFilter, int page=1)
         {
             if (searchString != null)
                 page = 1;
@@ -38,20 +38,21 @@ namespace KnowledgeTestingSystem.Controllers
             //Contains(searchString)||s.Name.ToLower().Contains(searchString)||s.Name.ToUpper().Contains(searchString)
             //  || s.ThemeOfTest.Contains(searchString)|| s.ThemeOfTest.ToLower().Contains(searchString) || s.ThemeOfTest.ToUpper().Contains(searchString));
             var pageSize = 3;
-            var pageNumber = page ?? 1;
-            return View(tests.ToPagedList(pageNumber, pageSize));
+            IEnumerable<TestViewModel> testInPages = tests.Skip((page - 1) * pageSize).Take(pageSize);
+            PageViewModel pageViewModel = new PageViewModel{ PageNumber = page, PageSize = pageSize, TotalItems = tests.Count()};
+            IndexPageViewModel ipvm = new IndexPageViewModel { PageViewModel = pageViewModel, Tests = testInPages };
+            return View(ipvm);
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Testing system";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
 
             return View();
         }

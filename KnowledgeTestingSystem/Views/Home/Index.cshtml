@@ -1,25 +1,26 @@
-﻿@using PagedList.Mvc
-@model PagedList.IPagedList<KnowledgeTestingSystem.Models.TestViewModel>
+﻿@model KnowledgeTestingSystem.Models.IndexPageViewModel
+@using KnowledgeTestingSystem.Helpers
 @{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
     <h1>Knowledge Testing</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+    <p class="lead">
+        Online testing
+    </p>
 </div>
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Get, new {@class = "form-inline my-2 my-lg-0"}))
+@using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
 {
     <p>
-        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new {@class = "form-control mr-sm-2", placeholder = "Search"})
-        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search"/>
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control mr-sm-2", placeholder = "Search" })
+        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search" />
     </p>
 }
 <div class="container pt-4">
     <div class="row text-center text-lg-left">
-        @foreach (var item in Model)
+        @foreach (var item in Model.Tests)
         {
             using (Html.BeginForm("Index", "Home",
                 new
@@ -33,7 +34,7 @@
                 }))
             {
                 <div class="card mb-4 shadow">
-                    <img class="card-img-top" src="@Url.Content(item.CoverImage)" alt="@item.Name" style="display: block; height: 250px; width: 100%;">
+                    <img class="card-img-top " src="@Url.Content(item.CoverImage)" alt="@item.Name" style="display: block; height: 250px; width: 100%;">
                     <div class="card-body">
                         <h4 class="card-title">
                             Name:
@@ -49,42 +50,23 @@
                             @Html.DisplayFor(modelItem => item.TimeMinutes)
                         </p>
                         <div class="btn-group">
-                            @Html.ActionLink("Choose", "InformAboutTest", "Test", new {item.Id}, new {@class = "btn btn-outline-success my-2 my-sm-0"})
+                            @Html.ActionLink("Start", "InformAboutTest", "Test", new { item.Id }, new { @class = "btn btn-outline-success my-2 my-sm-0" })
                             @*<input type="hidden" value=@item.Id name="id">
-                            <input class="btn btn-light" type="submit" value="Take" />*@
+                                <input class="btn btn-light" type="submit" value="Take" />*@
                         </div>
                     </div>
                 </div>
             }
         }
-        <br/>
+        <br />
         @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
-        <ul class="pagination">
-            @Html.PagedListPager(Model, page => Url.Action("Index",
-                new {page, currentFilter = ViewBag.CurrentFilter, @class = "page-item"}))
-        </ul>
+
+        @*@Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, currentFilter = ViewBag.CurrentFilter, @class = "page-item" }))*@
+    </div>
+    <div class="btn-group">
+        @Html.PageLinks(Model.PageViewModel, x => Url.Action("Index", new { page = x, currentFilter = ViewBag.CurrentFilter, @class = "page-item" }))
     </div>
 </div>
 
 
-@*<div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </div>
-    </div>*@

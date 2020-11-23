@@ -29,12 +29,14 @@ namespace KnowledgeTestingSystem.Controllers
             _userStatisticService = userStatisticService;
         }
 
+        #region Testing
         // GET: Test
-        public ActionResult InformAboutTest(int? Id)
+        [HttpGet]
+        public ActionResult InformAboutTest(int? id)
         {
-            if (Id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var test = _testService.GetById(Id.Value);
+            var test = _testService.GetById(id.Value);
             if (test == null) return HttpNotFound();
 
             var themeOfTest = _themeOfTestService.GetById(test.ThemeOfTestId);
@@ -48,10 +50,10 @@ namespace KnowledgeTestingSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult Testing(int? Id)
+        public ActionResult Testing(int? id)
         {
-            if (Id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var questions = _questionService.GetAll().Where(x => x.TestId == Id).ToList();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var questions = _questionService.GetAll().Where(x => x.TestId == id).ToList();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<QuestionDTO, QuestionViewModel>()).CreateMapper();
             var questionsViewModel = mapper.Map<IEnumerable<QuestionDTO>, IEnumerable<QuestionViewModel>>(questions);
             var answers = _answerService.GetAll().ToList();
@@ -60,7 +62,7 @@ namespace KnowledgeTestingSystem.Controllers
             foreach (var question in questionsViewModel)
                 question.Answer = answerViewModel.Where(x => x.QuestionId == question.Id).ToList();
 
-            var test = _testService.GetById(Id.Value);
+            var test = _testService.GetById(id.Value);
             mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
             var testViewModel = mapper.Map<TestDTO, TestViewModel>(test);
             testViewModel.Question = questionsViewModel.ToList();
@@ -71,6 +73,8 @@ namespace KnowledgeTestingSystem.Controllers
         [HttpPost]
         public ActionResult Testing(TestViewModel testViewModel)
         {
+            if (testViewModel==null) 
+            { return new HttpStatusCodeResult(HttpStatusCode.BadRequest); }
             var countCorrectAnswer = CountCorrectAnswer(testViewModel);
             var statisticViewModel = new UserStatisticViewModel
             {
@@ -109,17 +113,17 @@ namespace KnowledgeTestingSystem.Controllers
                             allCorrectAnswer++;
             return countCorrectAnswer * 100 / allCorrectAnswer;
         }
-
+        [HttpGet]
         public ActionResult CompleteTest(UserStatisticViewModel userStatisticViewModel)
         {
             return View(userStatisticViewModel);
         }
-
-        public ActionResult NotCompleteTest(UserStatisticViewModel userStatisticViewModel)
+        [HttpGet]
+        public ActionResult NotCompleteTest()
         {
             return View();
         }
-
+        #endregion
         [HttpGet]
         public ActionResult GetTests()
         {
@@ -155,11 +159,21 @@ namespace KnowledgeTestingSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateTest()
+        public ActionResult CreateTestDetails(int? questionCount,int? answerCount)
         {
+            var test = new TestViewModel
+            {
+                Question = new List<QuestionViewModel>(questionCount.Value),
+            };
             return View();
         }
-
+        [HttpGet]
+        public ActionResult CreateTest()
+        {
+            
+            return View();
+        }
+       
         [HttpPost]
         public ActionResult CreateTest(TestViewModel testViewModel)
         {
@@ -167,6 +181,33 @@ namespace KnowledgeTestingSystem.Controllers
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestViewModel, TestDTO>()).CreateMapper();
             var test = mapper.Map<TestViewModel, TestDTO>(testViewModel);
             _testService.Create(test);
+
+            var newTest=_testService.GetAll().FirstOrDefault(x => (x.Name == testViewModel.Name&&x.ThemeOfTest==testViewModel.ThemeOfTest));
+            if (newTest == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            return RedirectToAction("CreateQuestion","Question",new {testId=newTest.Id});
+        }
+        [HttpGet]
+        public ActionResult UpdateTest(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var test = _testService.GetById(id.Value);
+            if (test == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
+            var testViewModel = mapper.Map<TestDTO, TestViewModel>(test);
+            return View(testViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateTest(TestViewModel testViewModel)
+        {
+            if (testViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestViewModel, TestDTO>()).CreateMapper();
+            var test = mapper.Map<TestViewModel, TestDTO>(testViewModel);
+            _testService.Update(test);
             return RedirectToAction("GetTests");
         }
     }

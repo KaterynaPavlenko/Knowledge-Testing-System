@@ -1,0 +1,94 @@
+﻿@model KnowledgeTestingSystem.Models.QuestionViewModel
+
+@{
+    ViewBag.Title = "Create Question";
+}
+
+<div class="container">
+    <div class="card border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="row justify-content-center">
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray mb-4">@ViewBag.Title</h1>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Text)
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name="ImageFile" />
+                            </div>
+                            @Html.HiddenFor(model => model.TestId)
+                            <div class="form-group" id="Answer">
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="New" class="btn btn-success" onclick="createNewQuestionField()" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-success" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function createNewQuestionField() {
+
+
+        // определяем контейнер для хранения полей с вопросами
+        var container = document.getElementById("Answer");
+
+        // получаем текущее количество input (полей для вопросов)
+
+        var fieldCount = container.getElementsByTagName("input").length;
+        if (fieldCount>0)
+            fieldCount = fieldCount-2;
+        
+
+        // здесь добавляем элемент, который будет хранить input (в моем случае, у вас может быть по другому или вообще не быть его)
+        var divId = document.createElement("div");
+        divId.setAttribute("class", "col-md-10");
+        var divText = document.createElement("div");
+        divText.setAttribute("class", "col-md-10");
+        var divIsCorrect = document.createElement("div");
+        divIsCorrect.setAttribute("class", "col-md-10");
+
+        // создаем новое поле с новым id, name ДОЛЖЕН СОВПАДАТЬ С ИМЕНЕМ ПОЛЯ В МОДЕЛИ!!!
+        var fieldText = document.createElement("input");
+        fieldText.setAttribute("class", "form-control");
+        fieldText.setAttribute("id", "Answer[" + fieldCount + "].Text");
+        fieldText.setAttribute("name", "Answer[" + fieldCount + "].Text");
+        fieldText.setAttribute("type", "text");
+        var fieldId = document.createElement("input");
+        fieldId.setAttribute("class", "form-control");
+        fieldId.setAttribute("type", "hidden");
+        fieldId.setAttribute("id", "Answer[" + fieldCount + "].Id");
+        fieldId.setAttribute("name", "Answer[" + fieldCount + "].Id");
+        var fieldIsCorrect = document.createElement("input");
+        fieldIsCorrect.setAttribute("class", "form-control check-box");
+        fieldIsCorrect.setAttribute("type", "checkbox");
+        fieldIsCorrect.setAttribute("id", "Answer[" + fieldCount + "].IsCorrect");
+        fieldIsCorrect.setAttribute("name", "Answer[" + fieldCount + "].IsCorrect");
+        // добавляем поле в <div class="form-group"></div>
+        divId.innerHTML = "<label>Answer</label>";
+        divId.append(fieldId);
+        container.appendChild(divId);
+        divText.innerHTML = "<label>Text</label>";
+        divText.append(fieldText);
+        container.appendChild(divText);
+        divIsCorrect.innerHTML = "<label>Is correct</label>";
+        divIsCorrect.append(fieldIsCorrect);
+        container.appendChild(divIsCorrect);
+    }
+</script>

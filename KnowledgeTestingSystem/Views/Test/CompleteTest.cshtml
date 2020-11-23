@@ -1,49 +1,57 @@
 ﻿@model KnowledgeTestingSystem.Models.UserStatisticViewModel
 
 @{
-    ViewBag.Title = "CompleteTest";
+    ViewBag.Title = "Result";
 }
 
-<h2>CompleteTest</h2>
 
-<div>
-    <h4>UserStatisticViewModel</h4>
-    <hr/>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CountCorrectAnswer)
-        </dt>
+<div class="card border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+        <div class="row justify-content-center">
+            <div class="p-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray mb-4">@ViewBag.Title</h1>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CountCorrectAnswer)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CountCorrectAnswer)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.CountCorrectAnswer)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DateTimeStart)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DateTimeStart)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DateTimeStart)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.DateTimeStart)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DateTimeEnd)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DateTimeEnd)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DateTimeEnd)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.DateTimeEnd)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PercentCorrectAnswer)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PercentCorrectAnswer)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PercentCorrectAnswer)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.PercentCorrectAnswer)
+                        </dd>
+                        <dd>
+                            @Html.ActionLink("Back to List", "Index", "Home","", new { @class = "button-custom-test btn" })
 
-    </dl>
+                        </dd>
+                    </dl>
+                </div>
+               
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index", "Home")
-</p>
