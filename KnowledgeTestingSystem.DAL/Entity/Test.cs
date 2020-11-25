@@ -10,7 +10,7 @@ namespace KnowledgeTestingSystem.DAL.Entity
             UserStatistics=new List<UserStatistic>();
         }
         public string Name { get; set; }
-        public int ThemeOfTestId { get; set; }
+        public int? ThemeOfTestId { get; set; }
         public int TimeMinutes { get; set; }
         public string CoverImage { get; set; }
         public virtual ThemeOfTest ThemeOfTest { get; set; }

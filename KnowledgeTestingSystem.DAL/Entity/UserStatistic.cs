@@ -9,10 +9,9 @@ namespace KnowledgeTestingSystem.DAL.Entity
         public int CountCorrectAnswer { get; set; }
         public DateTime DateTimeStart { get; set; }
         public DateTime DateTimeEnd { get; set; }
-        public int Mark { get; set; }
-       public double PercentCorrectAnswer { get; set; }
+        public int PercentCorrectAnswer { get; set; }
         public string UserEntityId{ get; set; }
-        public int TestId { get; set; }
+        public int? TestId { get; set; }
         public virtual Test Test { get; set; }
         public virtual UserEntity UserEntity { get; set; }
     }

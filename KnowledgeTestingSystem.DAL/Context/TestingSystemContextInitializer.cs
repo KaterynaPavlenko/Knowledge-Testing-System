@@ -24,7 +24,7 @@ namespace KnowledgeTestingSystem.DAL.Context
 
             if (!roleCreateResult.Succeeded) throw new Exception(string.Join("; ", roleCreateResult.Errors));
             //create a new role Client
-            var newRoleClient = new IdentityRole("Client");
+            var newRoleClient = new IdentityRole("User");
             roleCreateResult = roleManager.Create(newRoleClient);
             if (!roleCreateResult.Succeeded) throw new Exception(string.Join("; ", roleCreateResult.Errors));
             //create a new user as a admin

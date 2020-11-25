@@ -27,7 +27,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                new UserStatistic
                 {
                 Id = 1,
-                Mark = 1,
                 CountCorrectAnswer = 1,
                 DateTimeEnd = DateTime.Now,
                 DateTimeStart = DateTime.Now,
@@ -38,7 +37,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                 new UserStatistic
                {
                Id = 2,
-               Mark = 2,
                CountCorrectAnswer = 2,
                DateTimeStart = DateTime.Now,
                DateTimeEnd = DateTime.Today,
@@ -49,7 +47,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                new UserStatistic
                 {
                 Id = 3,
-                Mark = 3,
                 CountCorrectAnswer = 3,
                 DateTimeStart = DateTime.Now,
                 DateTimeEnd = DateTime.Today,
@@ -86,7 +83,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             var expectedStatistic= new UserStatistic
             {
                 Id = 1,
-                Mark = 1,
                 CountCorrectAnswer = 1,
                 DateTimeStart = DateTime.Now,
                 DateTimeEnd = DateTime.Today,

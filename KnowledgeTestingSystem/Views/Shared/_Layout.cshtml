@@ -26,10 +26,10 @@
                 <li class="nav-item">
                     @Html.ActionLink("Contact", "Contact", "Home", new {area = ""}, new {@class = "nav-link"})
                 </li>
-                @*@if (User.IsInRole("administrator"))
-                    {*@
+                @if (User.IsInRole("Administrator"))
+                    {
                 <li class="nav-item">@Html.ActionLink("Dashboard", "Index", "Admin", new {area = ""}, new {@class = "nav-link"})</li>
-                @* } *@
+                 } 
 
             </ul>
             @Html.Partial("_LoginPartial")

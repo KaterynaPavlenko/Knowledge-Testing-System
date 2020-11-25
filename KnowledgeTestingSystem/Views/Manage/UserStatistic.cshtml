@@ -1,0 +1,54 @@
+﻿@model IEnumerable<KnowledgeTestingSystem.Models.UserStatisticViewModel>
+
+@{
+    ViewBag.Title = "UserStatistic";
+}
+
+<h2>UserStatistic</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CountCorrectAnswer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTimeStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTimeEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PercentCorrectAnswer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Test)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CountCorrectAnswer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTimeStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTimeEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PercentCorrectAnswer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Test)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User)
+        </td>
+    </tr>
+}
+
+</table>

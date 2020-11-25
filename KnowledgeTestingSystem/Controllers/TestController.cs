@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -29,7 +30,134 @@ namespace KnowledgeTestingSystem.Controllers
             _userStatisticService = userStatisticService;
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult GetTests()
+        {
+            var tests = _testService.GetAll();
+            if (tests == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
+            var testsViewModel = mapper.Map<IEnumerable<TestDTO>, IEnumerable<TestViewModel>>(tests);
+            return View(testsViewModel);
+        }
+
+        #region CRUD 
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult DeleteTest(int? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var test = _testService.GetById(id.Value);
+            if (test == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
+            var testViewModel = mapper.Map<TestDTO, TestViewModel>(test);
+            return View(testViewModel);
+        }
+
+        [HttpPost]
+        [ActionName("DeleteTest")]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult ConfirmDelete(int? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var test = _testService.GetById(id.Value);
+            if (test == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            _testService.Delete(id.Value);
+            return RedirectToAction("GetTests");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+
+        public ActionResult CreateTestDetails(int? questionCount, int? answerCount)
+        {
+            var test = new TestViewModel
+            {
+                Question = new List<QuestionViewModel>(questionCount.Value)
+            };
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+
+        public ActionResult CreateTest()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+
+        public ActionResult CreateTest(TestViewModel testViewModel)
+        {
+            var fileName = Path.GetFileNameWithoutExtension(testViewModel.ImageFile.FileName);
+            var extension = Path.GetExtension(testViewModel.ImageFile.FileName);
+            fileName += extension;
+            testViewModel.CoverImage = "~/Content/Image/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/Content/Image/"), fileName);
+            try
+            {
+                testViewModel.ImageFile.SaveAs(fileName);
+            }
+            catch (DirectoryNotFoundException dirEx)
+            {
+                ModelState.AddModelError("Error adding image", dirEx.Message);
+            }
+
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestViewModel, TestDTO>()).CreateMapper();
+            var test = mapper.Map<TestViewModel, TestDTO>(testViewModel);
+            _testService.Create(test);
+
+            var newTest = _testService.GetAll().FirstOrDefault(x =>
+                x.Name == testViewModel.Name && x.ThemeOfTest == testViewModel.ThemeOfTest);
+            if (newTest == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            return RedirectToAction("CreateQuestion", "Question", new {testId = newTest.Id});
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+
+        public ActionResult UpdateTest(int? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var test = _testService.GetById(id.Value);
+            if (test == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
+            var testViewModel = mapper.Map<TestDTO, TestViewModel>(test);
+            return View(testViewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+
+        public ActionResult UpdateTest(TestViewModel testViewModel)
+        {
+            var fileName = Path.GetFileNameWithoutExtension(testViewModel.ImageFile.FileName);
+            var extension = Path.GetExtension(testViewModel.ImageFile.FileName);
+            fileName += extension;
+            testViewModel.CoverImage = "~/Content/Image/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/Content/Image/"), fileName);
+            try
+            {
+                testViewModel.ImageFile.SaveAs(fileName);
+            }
+            catch (DirectoryNotFoundException dirEx)
+            {
+                ModelState.AddModelError("Error adding image", dirEx.Message);
+            }
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestViewModel, TestDTO>()).CreateMapper();
+            var test = mapper.Map<TestViewModel, TestDTO>(testViewModel);
+            _testService.Update(test);
+            return RedirectToAction("GetTests");
+        }
+        #endregion
         #region Testing
+
         // GET: Test
         [HttpGet]
         public ActionResult InformAboutTest(int? id)
@@ -39,7 +167,7 @@ namespace KnowledgeTestingSystem.Controllers
             var test = _testService.GetById(id.Value);
             if (test == null) return HttpNotFound();
 
-            var themeOfTest = _themeOfTestService.GetById(test.ThemeOfTestId);
+            var themeOfTest = _themeOfTestService.GetById(test.ThemeOfTestId.Value);
             if (themeOfTest == null) return HttpNotFound();
 
             test.ThemeOfTest = themeOfTest.Theme;
@@ -50,10 +178,15 @@ namespace KnowledgeTestingSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "User")]
         public ActionResult Testing(int? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var questions = _questionService.GetAll().Where(x => x.TestId == id).ToList();
+            if (questions.Count == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<QuestionDTO, QuestionViewModel>()).CreateMapper();
             var questionsViewModel = mapper.Map<IEnumerable<QuestionDTO>, IEnumerable<QuestionViewModel>>(questions);
             var answers = _answerService.GetAll().ToList();
@@ -71,10 +204,10 @@ namespace KnowledgeTestingSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User")]
         public ActionResult Testing(TestViewModel testViewModel)
         {
-            if (testViewModel==null) 
-            { return new HttpStatusCodeResult(HttpStatusCode.BadRequest); }
+            if (testViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var countCorrectAnswer = CountCorrectAnswer(testViewModel);
             var statisticViewModel = new UserStatisticViewModel
             {
@@ -103,7 +236,7 @@ namespace KnowledgeTestingSystem.Controllers
             return correctAnswer;
         }
 
-        private double PercentCorrectAnswer(TestViewModel test, int countCorrectAnswer)
+        private int PercentCorrectAnswer(TestViewModel test, int countCorrectAnswer)
         {
             double allCorrectAnswer = 0;
             foreach (var question in test.Question)
@@ -111,104 +244,23 @@ namespace KnowledgeTestingSystem.Controllers
                     foreach (var answer in question.Answer)
                         if (answer.IsCorrect)
                             allCorrectAnswer++;
-            return countCorrectAnswer * 100 / allCorrectAnswer;
+            return (int)(countCorrectAnswer * 100 / allCorrectAnswer);
         }
+
         [HttpGet]
+        [Authorize(Roles = "User")]
         public ActionResult CompleteTest(UserStatisticViewModel userStatisticViewModel)
         {
             return View(userStatisticViewModel);
         }
+
         [HttpGet]
+        [Authorize(Roles = "User")]
         public ActionResult NotCompleteTest()
         {
             return View();
         }
+
         #endregion
-        [HttpGet]
-        public ActionResult GetTests()
-        {
-            var tests = _testService.GetAll();
-            if (tests == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
-            var testsViewModel = mapper.Map<IEnumerable<TestDTO>, IEnumerable<TestViewModel>>(tests);
-            return View(testsViewModel);
-        }
-
-        [HttpGet]
-        public ActionResult DeleteTest(int? id)
-        {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var test = _testService.GetById(id.Value);
-            if (test == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
-            var testViewModel = mapper.Map<TestDTO, TestViewModel>(test);
-            return View(testViewModel);
-        }
-
-        [HttpPost]
-        [ActionName("DeleteTest")]
-        public ActionResult ConfirmDelete(int? id)
-        {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var test = _testService.GetById(id.Value);
-            if (test == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            _testService.Delete(id.Value);
-            return RedirectToAction("GetTests");
-        }
-
-        [HttpGet]
-        public ActionResult CreateTestDetails(int? questionCount,int? answerCount)
-        {
-            var test = new TestViewModel
-            {
-                Question = new List<QuestionViewModel>(questionCount.Value),
-            };
-            return View();
-        }
-        [HttpGet]
-        public ActionResult CreateTest()
-        {
-            
-            return View();
-        }
-       
-        [HttpPost]
-        public ActionResult CreateTest(TestViewModel testViewModel)
-        {
-            if (testViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestViewModel, TestDTO>()).CreateMapper();
-            var test = mapper.Map<TestViewModel, TestDTO>(testViewModel);
-            _testService.Create(test);
-
-            var newTest=_testService.GetAll().FirstOrDefault(x => (x.Name == testViewModel.Name&&x.ThemeOfTest==testViewModel.ThemeOfTest));
-            if (newTest == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            return RedirectToAction("CreateQuestion","Question",new {testId=newTest.Id});
-        }
-        [HttpGet]
-        public ActionResult UpdateTest(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var test = _testService.GetById(id.Value);
-            if (test == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
-            var testViewModel = mapper.Map<TestDTO, TestViewModel>(test);
-            return View(testViewModel);
-        }
-
-        [HttpPost]
-        public ActionResult UpdateTest(TestViewModel testViewModel)
-        {
-            if (testViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestViewModel, TestDTO>()).CreateMapper();
-            var test = mapper.Map<TestViewModel, TestDTO>(testViewModel);
-            _testService.Update(test);
-            return RedirectToAction("GetTests");
-        }
     }
 }

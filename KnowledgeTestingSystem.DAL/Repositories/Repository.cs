@@ -23,6 +23,7 @@ namespace KnowledgeTestingSystem.DAL.Repositories
         public IEnumerable<TEntity> GetAll(string includeProperties = "")
         {
              IQueryable<TEntity> query = _entities;
+             query = query.Where(e => e.IsDeleted == false);
              foreach (var includeProperty in includeProperties.Split
                  (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
              {
@@ -45,14 +46,19 @@ namespace KnowledgeTestingSystem.DAL.Repositories
 
         public void Update(TEntity updatedEntity)
         {
-            _testingSystemDbContext.Entry(updatedEntity).State = EntityState.Modified;
+            bool doesEntityExist =  _testingSystemDbContext.Set<TEntity>().Any(x => x.Id == updatedEntity.Id);
+            _testingSystemDbContext.Set<TEntity>().Attach(updatedEntity);
+            _testingSystemDbContext.Entry(updatedEntity).State = doesEntityExist ? EntityState.Modified : EntityState.Added;
         }
 
         public void Delete(int id)
         {
             var found = _entities.FirstOrDefault(entity => entity.Id == id);
             if (found != null)
-                _entities.Remove(found);
+            {
+                found.DeletedDate = DateTime.Now;
+                found.IsDeleted = true;
+            }
         }
     }
 }

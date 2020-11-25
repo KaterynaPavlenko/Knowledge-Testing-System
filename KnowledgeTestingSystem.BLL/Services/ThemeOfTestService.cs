@@ -22,6 +22,7 @@ namespace KnowledgeTestingSystem.BLL.Services
             {
                 Theme = test.Theme
             });
+            _unitOfWork.Save();
         }
 
         public void Delete(int id)

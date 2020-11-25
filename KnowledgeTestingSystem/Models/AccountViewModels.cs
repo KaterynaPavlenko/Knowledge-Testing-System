@@ -68,7 +68,7 @@ namespace KnowledgeTestingSystem.Models
 
         [Required]
         [Display(Name = "Phone")]
-        [RegularExpression(@"^(\d{10})$", ErrorMessage = "Wrong mobile")]
+        [RegularExpression(@"^(\d{10})$", ErrorMessage = "Wrong mobile. 10 characters required")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 

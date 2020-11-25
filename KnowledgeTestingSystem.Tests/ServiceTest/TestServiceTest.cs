@@ -14,6 +14,7 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
     public class TestServiceTest 
     {
         private Mock<IRepository<Test>> _testRepository;
+        private Mock<IRepository<ThemeOfTest>> _themeOfTestRepository;
         private ITestService _testService;
         private Mock<IUnitOfWork> _unitOfWork;
         private List<Test> tests;
@@ -48,6 +49,7 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             };
             // Create a new mock of the repository
             _testRepository = new Mock<IRepository<Test>>();
+            _themeOfTestRepository = new Mock<IRepository<ThemeOfTest>>();
             _unitOfWork = new Mock<IUnitOfWork>();
             // Set up the mock for the repository
             _unitOfWork.Setup(x => x.Tests.GetAll("ThemeOfTest")).Returns(tests);
@@ -75,11 +77,11 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             {
                 Id = 1,
                 Name = "Test_1",
-                ThemeOfTestId = 1
+                ThemeOfTestId = 1,
             };
 
             _unitOfWork.Setup(m => m.Tests.GetById(expectedTest.Id)).Returns(expectedTest);
-            // Act
+                // Act
             var actual = _testService.GetById(expectedTest.Id);
 
             //Assert
@@ -129,10 +131,12 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             {
                 Id = 3,
                 Name = "NewTest",
-                ThemeOfTestId = 1
+                ThemeOfTestId = 1,
+                ThemeOfTest = "New theme"
             };
             _unitOfWork.Setup(x => x.Tests.Create(It.IsAny<Test>()));
             _unitOfWork.Setup(m => m.Tests.GetById(testDto.Id)).Returns(tests.FirstOrDefault(x => x.Id == testDto.Id));
+            _unitOfWork.Setup(m => m.ThemesOfTest.GetById(testDto.ThemeOfTestId.Value));
             // Act
             _testService.Create(testDto);
             // Assert

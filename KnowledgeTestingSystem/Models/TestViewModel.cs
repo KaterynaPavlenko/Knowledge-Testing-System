@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 using System.Web.Mvc;
 
 namespace KnowledgeTestingSystem.Models
@@ -27,8 +28,9 @@ namespace KnowledgeTestingSystem.Models
 
         [Display(Name = "Star Time")] 
         public DateTime StarTime { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
 
-        public int ThemeOfTestId { get; set; }
+        public int? ThemeOfTestId { get; set; }
         public List<QuestionViewModel> Question { get; set; }
     }
 }

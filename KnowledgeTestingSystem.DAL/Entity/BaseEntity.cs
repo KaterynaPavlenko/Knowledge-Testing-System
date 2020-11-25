@@ -1,7 +1,12 @@
-﻿namespace KnowledgeTestingSystem.DAL.Entity
+﻿using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
+using System;
+
+namespace KnowledgeTestingSystem.DAL.Entity
 {
-    public class BaseEntity : IBaseEntity
+    public class BaseEntity : IBaseEntity,ISoftDelete
     {
         public int Id { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
     }
 }

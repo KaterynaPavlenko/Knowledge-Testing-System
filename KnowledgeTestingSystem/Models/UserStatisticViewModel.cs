@@ -20,7 +20,7 @@ namespace KnowledgeTestingSystem.Models
         public DateTime DateTimeEnd { get; set; }
         [Required]
         [Display(Name = "Percent correct answers")]
-        public double PercentCorrectAnswer { get; set; }
+        public int PercentCorrectAnswer { get; set; }
         [Display(Name = "Test name")]
         public string Test { get; set; }
         [Display(Name = "User email")]

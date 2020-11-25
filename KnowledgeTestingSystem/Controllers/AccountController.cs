@@ -134,6 +134,7 @@ namespace KnowledgeTestingSystem.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(user.Id, "User");
                     await SignInManager.SignInAsync(user, false, false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

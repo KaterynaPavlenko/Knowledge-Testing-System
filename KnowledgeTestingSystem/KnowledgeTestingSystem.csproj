@@ -414,6 +414,7 @@
     <Content Include="Views\Test\CreateTestDetails.cshtml" />
     <Content Include="Views\Answer\CreateAnswer.cshtml" />
     <Content Include="Views\Admin\UserStatistic.cshtml" />
+    <Content Include="Views\Manage\UserStatistic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

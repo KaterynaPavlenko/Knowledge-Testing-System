@@ -12,7 +12,7 @@ namespace KnowledgeTestingSystem.Models
         [Display(Name = "Answer text")]
         public string Text { get; set; }
         [HiddenInput(DisplayValue = false)]
-        public int QuestionId { get; set; }
+        public int? QuestionId { get; set; }
         [HiddenInput(DisplayValue = false)]
         [Display(Name = "Is selected by user")]
         public bool IsSelected { get; set; }

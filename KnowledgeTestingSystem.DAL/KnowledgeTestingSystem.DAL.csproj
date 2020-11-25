@@ -79,6 +79,7 @@
     <Compile Include="Repositories\Interfaces\IQuestionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IQuestionTypeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
+    <Compile Include="Entity\ISoftDelete.cs" />
     <Compile Include="Repositories\Interfaces\IUserStatisticRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITestRepository.cs" />
     <Compile Include="Repositories\Interfaces\IThemeOfTestRepository.cs" />

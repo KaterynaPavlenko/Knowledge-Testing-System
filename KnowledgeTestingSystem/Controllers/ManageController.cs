@@ -1,12 +1,17 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using KnowledgeTestingSystem.BLL.DTOs;
+using KnowledgeTestingSystem.BLL.Interfaces;
 using KnowledgeTestingSystem.BLL.Services;
 using KnowledgeTestingSystem.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Ninject.Infrastructure.Language;
 
 namespace KnowledgeTestingSystem.Controllers
 {
@@ -15,17 +20,21 @@ namespace KnowledgeTestingSystem.Controllers
     {
         private TestingSystemSignInManager _signInManager;
         private TestingSystemUserManager _userManager;
-
+        private readonly IUserStatisticService _userStatisticService;
         public ManageController()
         {
         }
 
-        public ManageController(TestingSystemUserManager userManager, TestingSystemSignInManager signInManager)
+        public ManageController(TestingSystemUserManager userManager, TestingSystemSignInManager signInManager,IUserStatisticService userStatisticService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _userStatisticService = userStatisticService;
         }
+        public ManageController( IUserStatisticService userStatisticService)
 
+        { _userStatisticService = userStatisticService;
+        }
         public TestingSystemSignInManager SignInManager
         {
             get => _signInManager ?? HttpContext.GetOwinContext().Get<TestingSystemSignInManager>();
@@ -68,7 +77,16 @@ namespace KnowledgeTestingSystem.Controllers
             };
             return View(model);
         }
-
+        [HttpGet]
+        public ActionResult UserStatistic()
+        {
+            var userStatistic = _userStatisticService.GetAll().Where(x => x.UserEntityId == User.Identity.GetUserId());
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserStatisticDTO, UserStatisticViewModel>())
+                .CreateMapper();
+            var userStatisticViewModel =
+                mapper.Map<IEnumerable<UserStatisticDTO>, List<UserStatisticViewModel>>(userStatistic);
+            return View(userStatisticViewModel);
+        }
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]
