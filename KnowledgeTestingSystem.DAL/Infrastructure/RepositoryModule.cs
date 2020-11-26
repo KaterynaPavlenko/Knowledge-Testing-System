@@ -1,11 +1,6 @@
-﻿using Ninject.Modules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KnowledgeTestingSystem.DAL.Repositories;
+﻿using KnowledgeTestingSystem.DAL.Repositories;
 using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
+using Ninject.Modules;
 
 namespace KnowledgeTestingSystem.DAL.Infrastructure
 {

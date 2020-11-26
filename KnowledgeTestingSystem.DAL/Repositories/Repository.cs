@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using KnowledgeTestingSystem.DAL.Context;
 using KnowledgeTestingSystem.DAL.Entity;
@@ -22,14 +21,12 @@ namespace KnowledgeTestingSystem.DAL.Repositories
 
         public IEnumerable<TEntity> GetAll(string includeProperties = "")
         {
-             IQueryable<TEntity> query = _entities;
-             query = query.Where(e => e.IsDeleted == false);
-             foreach (var includeProperty in includeProperties.Split
-                 (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-             {
-                 query = query.Include(includeProperty);
-             }
-             return query.ToList();
+            IQueryable<TEntity> query = _entities;
+            query = query.Where(e => e.IsDeleted == false);
+            foreach (var includeProperty in includeProperties.Split
+                (new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                query = query.Include(includeProperty);
+            return query.ToList();
         }
 
         public TEntity GetById(int id)
@@ -46,9 +43,10 @@ namespace KnowledgeTestingSystem.DAL.Repositories
 
         public void Update(TEntity updatedEntity)
         {
-            bool doesEntityExist =  _testingSystemDbContext.Set<TEntity>().Any(x => x.Id == updatedEntity.Id);
+            var doesEntityExist = _testingSystemDbContext.Set<TEntity>().Any(x => x.Id == updatedEntity.Id);
             _testingSystemDbContext.Set<TEntity>().Attach(updatedEntity);
-            _testingSystemDbContext.Entry(updatedEntity).State = doesEntityExist ? EntityState.Modified : EntityState.Added;
+            _testingSystemDbContext.Entry(updatedEntity).State =
+                doesEntityExist ? EntityState.Modified : EntityState.Added;
         }
 
         public void Delete(int id)

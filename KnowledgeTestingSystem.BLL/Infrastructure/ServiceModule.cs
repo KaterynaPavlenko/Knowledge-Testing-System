@@ -24,6 +24,7 @@ namespace KnowledgeTestingSystem.BLL.Infrastructure
             Bind<IQuestionTypeService>().To<QuestionTypeService>().WithConstructorArgument(connectionString);
             Bind<IUserStatisticService>().To<UserStatisticService>().WithConstructorArgument(connectionString);
             Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(connectionString);
+            Bind<ITestStatisticService>().To<TestStatisticService>().WithConstructorArgument(connectionString);
         }
     }
 }

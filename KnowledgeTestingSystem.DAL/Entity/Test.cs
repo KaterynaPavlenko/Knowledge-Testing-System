@@ -7,8 +7,9 @@ namespace KnowledgeTestingSystem.DAL.Entity
         public Test()
         {
             Questions = new List<Question>();
-            UserStatistics=new List<UserStatistic>();
+            UserStatistics = new List<UserStatistic>();
         }
+
         public string Name { get; set; }
         public int? ThemeOfTestId { get; set; }
         public int TimeMinutes { get; set; }

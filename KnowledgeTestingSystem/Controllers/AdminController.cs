@@ -13,10 +13,13 @@ namespace KnowledgeTestingSystem.Controllers
     {
         private ITestService _testService;
         private readonly IUserStatisticService _userStatisticService;
+        private readonly ITestStatisticService _testStatisticService;
 
-        public AdminController(IUserStatisticService userStatisticService)
+        public AdminController(IUserStatisticService userStatisticService,ITestService testService,ITestStatisticService testStatisticService)
         {
             _userStatisticService = userStatisticService;
+            _testStatisticService = testStatisticService;
+            _testService = testService;
         }
 
         // GET: Admin
@@ -35,6 +38,36 @@ namespace KnowledgeTestingSystem.Controllers
                 mapper.Map<IEnumerable<UserStatisticDTO>, IEnumerable<UserStatisticViewModel>>(userStatistic);
 
             return View(userStatisticViewModel);
+        }
+        [HttpGet]
+        public ActionResult TestStatistic()
+        {
+            var testStatistic = _testStatisticService.GetAll().ToList();
+
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestStatisticDTO, TestStatisticViewModel>())
+                .CreateMapper();
+            var testStatisticModel =
+                mapper.Map<IEnumerable<TestStatisticDTO>, IEnumerable<TestStatisticViewModel>>(testStatistic);
+
+            return View(testStatisticModel);
+        }
+        [HttpPost]
+        [ActionName("TestStatistic")]
+        public ActionResult UpdateStatistic()
+        {
+            var tests = _testService.GetAll().ToList();
+            foreach (var test in tests)
+            {
+                _testStatisticService.Update(test.Id);
+            }
+            var testStatistic = _testStatisticService.GetAll().ToList();
+
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestStatisticDTO, TestStatisticViewModel>())
+                .CreateMapper();
+            var testStatisticModel =
+                mapper.Map<IEnumerable<TestStatisticDTO>, IEnumerable<TestStatisticViewModel>>(testStatistic);
+
+            return View(testStatisticModel);
         }
     }
 }

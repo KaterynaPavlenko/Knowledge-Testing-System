@@ -1,0 +1,56 @@
+﻿@model IEnumerable<KnowledgeTestingSystem.Models.TestStatisticViewModel>
+
+@{
+    ViewBag.Title = "Test Statistic";
+}
+
+<h2>Test Statistic</h2>
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Update" class="btn btn-success" />
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Test)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Count)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AverageTime)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.AveragePercentCorrectAnswer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeLastUpdateStatistic)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Test)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AverageTime)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.AveragePercentCorrectAnswer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeLastUpdateStatistic)
+            </td>
+        </tr>
+    }
+
+
+</table>

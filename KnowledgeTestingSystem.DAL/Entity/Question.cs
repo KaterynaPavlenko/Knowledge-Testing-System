@@ -16,6 +16,5 @@ namespace KnowledgeTestingSystem.DAL.Entity
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual QuestionType QuestionsTypes { get; set; }
         public virtual Test Test { get; set; }
-
     }
 }

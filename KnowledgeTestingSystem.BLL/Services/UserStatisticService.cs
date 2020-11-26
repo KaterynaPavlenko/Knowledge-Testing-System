@@ -25,6 +25,7 @@ namespace KnowledgeTestingSystem.BLL.Services
                 PercentCorrectAnswer = statistic.PercentCorrectAnswer,
                 DateTimeStart = statistic.DateTimeStart,
                 DateTimeEnd = statistic.DateTimeEnd,
+                UserTestTime = statistic.DateTimeEnd.TimeOfDay.Subtract(statistic.DateTimeStart.TimeOfDay),
                 TestId = statistic.TestId
             });
             _unitOfWork.Save();

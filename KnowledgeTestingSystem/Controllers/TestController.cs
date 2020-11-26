@@ -115,7 +115,8 @@ namespace KnowledgeTestingSystem.Controllers
             var newTest = _testService.GetAll().FirstOrDefault(x =>
                 x.Name == testViewModel.Name && x.ThemeOfTest == testViewModel.ThemeOfTest);
             if (newTest == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            return RedirectToAction("CreateQuestion", "Question", new {testId = newTest.Id});
+            return RedirectToAction("GetTests");
+            //return RedirectToAction("CreateQuestion", "Question", new {testId = newTest.Id});
         }
 
         [HttpGet]

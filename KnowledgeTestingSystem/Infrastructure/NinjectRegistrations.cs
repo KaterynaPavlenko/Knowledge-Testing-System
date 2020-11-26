@@ -14,6 +14,7 @@ namespace KnowledgeTestingSystem.Infrastructure
             Bind<IQuestionTypeService>().To<QuestionTypeService>();
             Bind<IThemeOfTestService>().To<ThemeOfTestService>();
             Bind<IQuestionService>().To<QuestionService>();
+            Bind<ITestStatisticService>().To<TestStatisticService>();
         }
     }
 }

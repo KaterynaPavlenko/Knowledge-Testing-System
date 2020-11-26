@@ -28,11 +28,11 @@ namespace KnowledgeTestingSystem.DAL.Context
             roleCreateResult = roleManager.Create(newRoleClient);
             if (!roleCreateResult.Succeeded) throw new Exception(string.Join("; ", roleCreateResult.Errors));
             //create a new user as a admin
-            var admin = new UserEntity { Email = "admin@mail.com", UserName = "admin@mail.com" };
+            var admin = new UserEntity {Email = "admin@mail.com", UserName = "admin@mail.com"};
             var password = "123456789";
             var resultAdmin = userManager.Create(admin, password);
             //create a new user as a manager
-            var manager = new UserEntity { Email = "manager@mail.com", UserName = "manager@mail.com" };
+            var manager = new UserEntity {Email = "manager@mail.com", UserName = "manager@mail.com"};
             password = "123456789";
             var resultManager = userManager.Create(manager, password);
             //create a new user as a user
@@ -149,10 +149,10 @@ namespace KnowledgeTestingSystem.DAL.Context
                 },
                 new Question
                 {
-                Id = 4,
-                Text = "Где находится число 2 на координатной оси?",
-                TestId = 1
-            }
+                    Id = 4,
+                    Text = "Где находится число 2 на координатной оси?",
+                    TestId = 1
+                }
             };
             questionList.ForEach(std => context.Questions.Add(std));
             context.SaveChanges();
@@ -207,57 +207,64 @@ namespace KnowledgeTestingSystem.DAL.Context
                     Text = " В начале координат",
                     IsCorrect = false,
                     QuestionId = 2
-                }, new Answer
+                },
+                new Answer
                 {
                     Id = 8,
                     Text = " Может располагаться левее и правее, в зависимости от чисел",
                     IsCorrect = false,
                     QuestionId = 2
-                }, new Answer
+                },
+                new Answer
                 {
                     Id = 9,
                     Text = "Правее нуля",
                     IsCorrect = false,
                     QuestionId = 3
-                }, new Answer
+                },
+                new Answer
                 {
                     Id = 10,
                     Text = " Левее нуля",
                     IsCorrect = true,
                     QuestionId = 3
-                }, new Answer
+                },
+                new Answer
                 {
                     Id = 12,
                     Text = "Однозначного ответа на вопрос не существует",
                     IsCorrect = false,
                     QuestionId = 3
-                }, new Answer
+                },
+                new Answer
                 {
                     Id = 13,
                     Text = "Правее нуля",
                     IsCorrect = false,
                     QuestionId = 3
-                }, new Answer
+                },
+                new Answer
                 {
                     Id = 14,
                     Text = "Больше будет та дробь, знаменатель которой меньше",
                     IsCorrect = true,
                     QuestionId = 4
-                }, new Answer
+                },
+                new Answer
                 {
                     Id = 15,
                     Text = "Дроби будут одинаковы",
                     IsCorrect = false,
                     QuestionId = 4
-                }
-                , new Answer
+                },
+                new Answer
                 {
                     Id = 16,
                     Text = "Правее нуля",
                     IsCorrect = true,
                     QuestionId = 5
-                }
-                , new Answer
+                },
+                new Answer
                 {
                     Id = 17,
                     Text = " В начале координат",
@@ -276,12 +283,12 @@ namespace KnowledgeTestingSystem.DAL.Context
                 new QuestionType
                 {
                     Id = 2
-                },new QuestionType
+                },
+                new QuestionType
                 {
                     Id = 3
                 }
             };
-
         }
     }
 }

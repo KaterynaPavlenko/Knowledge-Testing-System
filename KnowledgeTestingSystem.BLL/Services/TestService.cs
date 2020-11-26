@@ -26,8 +26,8 @@ namespace KnowledgeTestingSystem.BLL.Services
             {
                 theme = new ThemeOfTest {Theme = test.ThemeOfTest};
                 _unitOfWork.ThemesOfTest.Create(theme);
+                test.ThemeOfTestId=_unitOfWork.ThemesOfTest.GetByTheme(theme.Theme).Id;
             }
-
             _unitOfWork.Tests.Create(new Test
             {
                 ThemeOfTestId = test.ThemeOfTestId,
@@ -80,11 +80,25 @@ namespace KnowledgeTestingSystem.BLL.Services
                 ThemeOfTestId = testEntity.ThemeOfTestId,
                 TimeMinutes = testEntity.TimeMinutes,
                 CoverImage = testEntity.CoverImage,
-                ThemeOfTest =testEntity.ThemeOfTest.Theme
+                ThemeOfTest = testEntity.ThemeOfTest?.Theme
+        };
+            return test;
+        }
+        public TestDTO GetByName(string name)
+        {
+            var testEntity = _unitOfWork.Tests.GetByName(name);
+            if (testEntity == null) throw new ValidationException("Not found test", string.Empty);
+            var test = new TestDTO
+            {
+                Id = testEntity.Id,
+                Name = testEntity.Name,
+                ThemeOfTestId = testEntity.ThemeOfTestId,
+                TimeMinutes = testEntity.TimeMinutes,
+                CoverImage = testEntity.CoverImage,
+                ThemeOfTest = testEntity.ThemeOfTest.Theme
             };
             return test;
         }
-
         public void Update(TestDTO testDTO)
         {
             ThemeOfTest theme;
@@ -93,8 +107,9 @@ namespace KnowledgeTestingSystem.BLL.Services
             {
                 theme = new ThemeOfTest { Theme = testDTO.ThemeOfTest };
                 _unitOfWork.ThemesOfTest.Create(theme);
-            }
+                testDTO.ThemeOfTestId = _unitOfWork.ThemesOfTest.GetByTheme(theme.Theme).Id;
 
+            }
             var test = new Test
             {
                 Id = testDTO.Id,

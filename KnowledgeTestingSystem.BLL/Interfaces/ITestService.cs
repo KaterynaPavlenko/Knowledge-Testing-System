@@ -10,9 +10,14 @@ namespace KnowledgeTestingSystem.BLL.Interfaces
         /// </summary>
         /// <returns> Test collection</returns>
         IEnumerable<TestDTO> GetAll();
+        /// <summary>
+        ///     Get Test by name
+        /// </summary>
+        /// <returns>Test entity</returns>
+        TestDTO GetByName(string testName);
 
         /// <summary>
-        ///     Getting Test Type by id
+        ///     Getting Test by id
         /// </summary>
         /// <param name="id">Test id</param>
         /// <returns>Test object</returns>

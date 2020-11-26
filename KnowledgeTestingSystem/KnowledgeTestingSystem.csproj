@@ -233,6 +233,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PageViewModel.cs" />
     <Compile Include="Models\QuestionViewModel.cs" />
+    <Compile Include="Models\TestStatisticViewModel.cs" />
     <Compile Include="Models\TestViewModel.cs" />
     <Compile Include="Models\UserStatisticViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -415,6 +416,7 @@
     <Content Include="Views\Answer\CreateAnswer.cshtml" />
     <Content Include="Views\Admin\UserStatistic.cshtml" />
     <Content Include="Views\Manage\UserStatistic.cshtml" />
+    <Content Include="Views\Admin\TestStatistic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

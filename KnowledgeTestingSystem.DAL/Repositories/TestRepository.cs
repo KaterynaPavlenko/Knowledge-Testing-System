@@ -1,4 +1,5 @@
-﻿using KnowledgeTestingSystem.DAL.Context;
+﻿using System.Linq;
+using KnowledgeTestingSystem.DAL.Context;
 using KnowledgeTestingSystem.DAL.Entity;
 using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
 
@@ -12,6 +13,10 @@ namespace KnowledgeTestingSystem.DAL.Repositories
         /// <param name="testingSystemDbContext">The context</param>
         public TestRepository(TestingSystemDbContext testingSystemDbContext) : base(testingSystemDbContext)
         {
+        }
+        public Test GetByName(string testName)
+        {
+            return GetAll().FirstOrDefault(e => e.Name == testName);
         }
     }
 }

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace KnowledgeTestingSystem.DAL.Repositories.Interfaces
+namespace KnowledgeTestingSystem.DAL.Entity
 {
-    interface ISoftDelete
+    internal interface ISoftDelete
     {
         bool IsDeleted { get; set; }
         DateTime? DeletedDate { get; set; }

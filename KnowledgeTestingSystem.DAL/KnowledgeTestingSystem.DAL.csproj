@@ -80,6 +80,7 @@
     <Compile Include="Repositories\Interfaces\IQuestionTypeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Entity\ISoftDelete.cs" />
+    <Compile Include="Repositories\Interfaces\ITestStatisticRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserStatisticRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITestRepository.cs" />
     <Compile Include="Repositories\Interfaces\IThemeOfTestRepository.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\QuestionTypeRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\TestStatisticRepository.cs" />
     <Compile Include="Repositories\UserStatisticRepository.cs" />
     <Compile Include="Repositories\TestRepository.cs" />
     <Compile Include="Repositories\ThemeOfTestRepository.cs" />

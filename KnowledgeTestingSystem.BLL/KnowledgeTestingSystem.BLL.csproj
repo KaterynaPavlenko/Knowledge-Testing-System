@@ -81,6 +81,7 @@
     <Compile Include="DTOs\AnswerDTO.cs" />
     <Compile Include="DTOs\QuestionDTO.cs" />
     <Compile Include="DTOs\QuestionTypeDTO.cs" />
+    <Compile Include="DTOs\TestStatisticDTO.cs" />
     <Compile Include="DTOs\UserStatisticDTO.cs" />
     <Compile Include="DTOs\TestDTO.cs" />
     <Compile Include="DTOs\ThemeOfTestDTO.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Interfaces\IAnswerService.cs" />
     <Compile Include="Interfaces\IQuestionService.cs" />
     <Compile Include="Interfaces\IQuestionTypeService.cs" />
+    <Compile Include="Interfaces\ITestStatisticService.cs" />
     <Compile Include="Interfaces\IUserStatisticService.cs" />
     <Compile Include="Interfaces\ITestService.cs" />
     <Compile Include="Interfaces\IThemeOfTestService.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Services\QuestionTypeService.cs" />
     <Compile Include="Services\TestingSystemSignInManager.cs" />
     <Compile Include="Services\TestingSystemUserManager.cs" />
+    <Compile Include="Services\TestStatisticService.cs" />
     <Compile Include="Services\UserStatisticService.cs" />
     <Compile Include="Services\TestService.cs" />
     <Compile Include="Services\ThemeOfTestService.cs" />

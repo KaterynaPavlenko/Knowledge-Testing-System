@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using KnowledgeTestingSystem.BLL.DTOs;
 using KnowledgeTestingSystem.BLL.Interfaces;
 using KnowledgeTestingSystem.BLL.Services;
@@ -18,10 +19,30 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
         private ITestService _testService;
         private Mock<IUnitOfWork> _unitOfWork;
         private List<Test> tests;
+        private IThemeOfTestService _themeOfTestService;
+        private List<ThemeOfTest> themesOfTestsList;
 
         [TestInitialize]
         public void SetUp()
         {
+            themesOfTestsList = new List<ThemeOfTest>
+            {
+                new ThemeOfTest
+                {
+                    Id = 1,
+                    Theme = "ThemeOfTest 1"
+                },
+                new ThemeOfTest
+                {
+                    Id = 2,
+                    Theme = "ThemeOfTest 2"
+                },
+                new ThemeOfTest
+                {
+                    Id = 3,
+                    Theme = "ThemeOfTest 3"
+                }
+            };
             tests = new List<Test>
             {
                 new Test
@@ -53,10 +74,11 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _unitOfWork = new Mock<IUnitOfWork>();
             // Set up the mock for the repository
             _unitOfWork.Setup(x => x.Tests.GetAll("ThemeOfTest")).Returns(tests);
-            _testRepository.Setup(x => x.GetAll("ThemeOfTest"))
-                .Returns(tests);
+            _testRepository.Setup(x => x.GetAll("ThemeOfTest")).Returns(tests);
+            _themeOfTestRepository.Setup(x => x.GetAll("")).Returns(themesOfTestsList);
             // Create the service and inject the repository into the service
             _testService = new TestService(_unitOfWork.Object);
+            _themeOfTestService = new ThemeOfTestService(_unitOfWork.Object);
         }
 
         [TestMethod]
@@ -90,24 +112,7 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             Assert.AreEqual(expectedTest.Id, actual.Id); //assert that actual result was as expected
         }
 
-        [TestMethod]
-        public void TestService_Can_Update_Test()
-        {
-            //Arrange
-            var test = new Test
-            {
-                Id = 1,
-                Name = "Test",
-                ThemeOfTestId = 1
-            };
-            _unitOfWork.Setup(m => m.Tests.Update(It.IsAny<Test>()));
-            // Act
-            _testService.Update(new TestDTO{Id = 1,Name = "NewTest"});
-
-            // Assert
-            _unitOfWork.Verify(v => v.Tests.Update(It.IsAny<Test>()), Times.Once());
-            _unitOfWork.Verify(x => x.Save(), Times.Once());
-        }
+     
 
         [TestMethod]
         public void TestService_Can_Delete_Test()
@@ -123,26 +128,7 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             _unitOfWork.Verify(x => x.Save(), Times.Once());
         }
 
-        [TestMethod]
-        public void TestService_Can_Create_Test()
-        {
-            //Arrange
-            var testDto = new TestDTO
-            {
-                Id = 3,
-                Name = "NewTest",
-                ThemeOfTestId = 1,
-                ThemeOfTest = "New theme"
-            };
-            _unitOfWork.Setup(x => x.Tests.Create(It.IsAny<Test>()));
-            _unitOfWork.Setup(m => m.Tests.GetById(testDto.Id)).Returns(tests.FirstOrDefault(x => x.Id == testDto.Id));
-            _unitOfWork.Setup(m => m.ThemesOfTest.GetById(testDto.ThemeOfTestId.Value));
-            // Act
-            _testService.Create(testDto);
-            // Assert
-            _unitOfWork.Verify(v => v.Tests.Create(It.IsAny<Test>()), Times.Once());
-            _unitOfWork.Verify(x => x.Save(), Times.Once());
-        }
+      
 
     }
 }

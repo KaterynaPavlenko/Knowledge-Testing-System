@@ -1,4 +1,5 @@
-﻿using KnowledgeTestingSystem.DAL.Context;
+﻿using System.Linq;
+using KnowledgeTestingSystem.DAL.Context;
 using KnowledgeTestingSystem.DAL.Entity;
 using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
 
@@ -12,6 +13,10 @@ namespace KnowledgeTestingSystem.DAL.Repositories
         /// <param name="testingSystemDbContext">The context</param>
         public ThemeOfTestRepository(TestingSystemDbContext testingSystemDbContext) : base(testingSystemDbContext)
         {
+        }
+        public ThemeOfTest GetByTheme(string theme)
+        {
+            return GetAll().FirstOrDefault(e => e.Theme == theme);
         }
     }
 }

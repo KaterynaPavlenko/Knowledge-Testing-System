@@ -38,6 +38,11 @@ namespace KnowledgeTestingSystem.DAL.Repositories.Interfaces
         IThemeOfTestRepository ThemesOfTest { get; }
 
         /// <summary>
+        ///     Gets the specified repository for the TestStatistic
+        /// </summary>
+        ITestStatisticRepository TestStatistic { get; }
+
+        /// <summary>
         ///     Saves all updates to the data source
         /// </summary>
         void Save();
