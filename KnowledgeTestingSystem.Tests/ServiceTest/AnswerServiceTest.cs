@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using KnowledgeTestingSystem.BLL.DTOs;
 using KnowledgeTestingSystem.BLL.Interfaces;
@@ -24,22 +23,22 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
         {
             answers = new List<Answer>
             {
-                 new Answer
+                new Answer
                 {
-                Id = 1,
-                Text = "Answer 1"
-            },
-           new Answer
-            {
-                Id = 2,
-                Text = "Answer 2"
-            },
-                 new Answer()
-            {
-                Id = 3,
-                Text = "Answer 3"
-            }
-        };
+                    Id = 1,
+                    Text = "Answer 1"
+                },
+                new Answer
+                {
+                    Id = 2,
+                    Text = "Answer 2"
+                },
+                new Answer
+                {
+                    Id = 3,
+                    Text = "Answer 3"
+                }
+            };
             // Create a new mock of the repository
             _answerRepository = new Mock<IRepository<Answer>>();
             _unitOfWork = new Mock<IUnitOfWork>();
@@ -90,7 +89,8 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                 Id = 1,
                 Text = "Answer 1"
             };
-            _unitOfWork.Setup(m => m.Answers.GetById(answerDto.Id)).Returns(answers.FirstOrDefault(x => x.Id == answerDto.Id));
+            _unitOfWork.Setup(m => m.Answers.GetById(answerDto.Id))
+                .Returns(answers.FirstOrDefault(x => x.Id == answerDto.Id));
             _unitOfWork.Setup(m => m.Answers.Update(It.IsAny<Answer>()));
             // Act
             _answerService.Update(answerDto);
@@ -106,7 +106,8 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             //Arrange
             var DeletedID = 1;
             _unitOfWork.Setup(m => m.Answers.Delete(DeletedID));
-            _unitOfWork.Setup(m => m.Answers.GetById(DeletedID)).Returns(answers.FirstOrDefault(x => x.Id == DeletedID));
+            _unitOfWork.Setup(m => m.Answers.GetById(DeletedID))
+                .Returns(answers.FirstOrDefault(x => x.Id == DeletedID));
             // Act
             _answerService.Delete(DeletedID);
             // Assert
@@ -121,16 +122,16 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             var answerDto = new AnswerDTO
             {
                 Id = 4,
-                Text = "Answer 1",
+                Text = "Answer 1"
             };
             _unitOfWork.Setup(x => x.Answers.Create(It.IsAny<Answer>()));
-            _unitOfWork.Setup(m => m.Answers.GetById(answerDto.Id)).Returns(answers.FirstOrDefault(x => x.Id == answerDto.Id));
+            _unitOfWork.Setup(m => m.Answers.GetById(answerDto.Id))
+                .Returns(answers.FirstOrDefault(x => x.Id == answerDto.Id));
             // Act
             _answerService.Create(answerDto);
             // Assert
             _unitOfWork.Verify(v => v.Answers.Create(It.IsAny<Answer>()), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
         }
-
     }
 }

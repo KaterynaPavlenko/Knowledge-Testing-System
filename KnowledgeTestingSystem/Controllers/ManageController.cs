@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -11,30 +12,34 @@ using KnowledgeTestingSystem.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Ninject.Infrastructure.Language;
 
 namespace KnowledgeTestingSystem.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private readonly IUserStatisticService _userStatisticService;
         private TestingSystemSignInManager _signInManager;
         private TestingSystemUserManager _userManager;
-        private readonly IUserStatisticService _userStatisticService;
+
         public ManageController()
         {
         }
 
-        public ManageController(TestingSystemUserManager userManager, TestingSystemSignInManager signInManager,IUserStatisticService userStatisticService)
+        public ManageController(TestingSystemUserManager userManager, TestingSystemSignInManager signInManager,
+            IUserStatisticService userStatisticService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
             _userStatisticService = userStatisticService;
         }
-        public ManageController( IUserStatisticService userStatisticService)
 
-        { _userStatisticService = userStatisticService;
+        public ManageController(IUserStatisticService userStatisticService)
+
+        {
+            _userStatisticService = userStatisticService;
         }
+
         public TestingSystemSignInManager SignInManager
         {
             get => _signInManager ?? HttpContext.GetOwinContext().Get<TestingSystemSignInManager>();
@@ -77,16 +82,26 @@ namespace KnowledgeTestingSystem.Controllers
             };
             return View(model);
         }
+
         [HttpGet]
         public ActionResult UserStatistic()
         {
-            var userStatistic = _userStatisticService.GetAll().Where(x => x.UserEntityId == User.Identity.GetUserId());
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserStatisticDTO, UserStatisticViewModel>())
-                .CreateMapper();
-            var userStatisticViewModel =
-                mapper.Map<IEnumerable<UserStatisticDTO>, List<UserStatisticViewModel>>(userStatistic);
-            return View(userStatisticViewModel);
+            try
+            {
+                var userStatistic = _userStatisticService.GetAll()
+                    .Where(x => x.UserEntityId == User.Identity.GetUserId());
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserStatisticDTO, UserStatisticViewModel>())
+                    .CreateMapper();
+                var userStatisticViewModel =
+                    mapper.Map<IEnumerable<UserStatisticDTO>, List<UserStatisticViewModel>>(userStatistic);
+                return View(userStatisticViewModel);
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
+
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]

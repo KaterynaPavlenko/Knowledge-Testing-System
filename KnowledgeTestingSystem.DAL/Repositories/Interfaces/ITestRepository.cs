@@ -8,6 +8,6 @@ namespace KnowledgeTestingSystem.DAL.Repositories.Interfaces
         ///     Get Test by name
         /// </summary>
         /// <returns>Test entity</returns>
-         Test GetByName(string testName);
+        Test GetByName(string testName);
     }
 }

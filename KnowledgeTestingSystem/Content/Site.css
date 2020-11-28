@@ -6,13 +6,11 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-.pagination a {
-    border-radius: 5px;
-}
 
-.pagination a.active {
-    border-radius: 5px;
-}
+.pagination a { border-radius: 5px; }
+
+.pagination a.active { border-radius: 5px; }
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -78,21 +76,21 @@ textarea { max-width: 280px; }
 }
 
 .button-custom-test {
-    font-size: 15px;
-    color: #696969;
-    padding: 16px 26px;
-    display: inline-block;
+    background: #F5F5F5;
     border-radius: 2px;
     box-shadow: 0px 2px #D3D3D3;
-    background: #F5F5F5;
+    color: #696969;
+    display: inline-block;
+    font-size: 15px;
+    padding: 16px 26px;
 }
+
 a:link {
     outline: none;
     text-decoration: none;
 }
-.question {
-    border-radius: 0;
-}
+
+.question { border-radius: 0; }
 
 .headline-custom {
     color: #2f4f4f;

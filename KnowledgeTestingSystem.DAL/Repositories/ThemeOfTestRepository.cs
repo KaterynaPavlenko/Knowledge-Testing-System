@@ -14,6 +14,7 @@ namespace KnowledgeTestingSystem.DAL.Repositories
         public ThemeOfTestRepository(TestingSystemDbContext testingSystemDbContext) : base(testingSystemDbContext)
         {
         }
+
         public ThemeOfTest GetByTheme(string theme)
         {
             return GetAll().FirstOrDefault(e => e.Theme == theme);

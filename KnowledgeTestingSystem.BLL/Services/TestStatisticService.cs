@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KnowledgeTestingSystem.BLL.DTOs;
 using KnowledgeTestingSystem.BLL.Infrastructure;
 using KnowledgeTestingSystem.BLL.Interfaces;
@@ -45,7 +43,6 @@ namespace KnowledgeTestingSystem.BLL.Services
                     Test = testStatisticEntity.Test.Name,
                     AveragePercentCorrectAnswer = testStatisticEntity.AveragePercentCorrectAnswer,
                     TimeLastUpdateStatistic = testStatisticEntity.TimeLastUpdateStatistic
-
                 };
                 testStatisticList.Add(testStatistic);
             }
@@ -76,14 +73,15 @@ namespace KnowledgeTestingSystem.BLL.Services
             var userStatistics = _unitOfWork.UserStatistic.GetAll().Where(e => e.TestId == testId).ToList();
             if (userStatistics.Count != 0)
             {
-                TimeSpan averageTime = TimeSpan.Zero;
-                int averagePercentCorrectAnswer = 0;
+                var averageTime = TimeSpan.Zero;
+                var averagePercentCorrectAnswer = 0;
                 foreach (var userStatistic in userStatistics)
                 {
                     averageTime += userStatistic.UserTestTime;
                     averagePercentCorrectAnswer += userStatistic.PercentCorrectAnswer;
                 }
-                TimeSpan avg = new TimeSpan(averageTime.Ticks / userStatistics.Count);
+
+                var avg = new TimeSpan(averageTime.Ticks / userStatistics.Count);
                 averagePercentCorrectAnswer = averagePercentCorrectAnswer / userStatistics.Count;
                 _unitOfWork.TestStatistic.Update(new TestStatistic
                 {
@@ -98,4 +96,3 @@ namespace KnowledgeTestingSystem.BLL.Services
         }
     }
 }
-

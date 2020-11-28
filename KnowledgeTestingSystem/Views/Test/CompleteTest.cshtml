@@ -11,7 +11,7 @@
             <div class="p-5">
                 <div class="text-center">
                     <h1 class="h4 text-gray mb-4">@ViewBag.Title</h1>
-                    <hr />
+                    <hr/>
                     <dl class="dl-horizontal">
                         <dt>
                             @Html.DisplayNameFor(model => model.CountCorrectAnswer)
@@ -45,12 +45,12 @@
                             @Html.DisplayFor(model => model.PercentCorrectAnswer)
                         </dd>
                         <dd>
-                            @Html.ActionLink("Back to List", "Index", "Home","", new { @class = "button-custom-test btn" })
+                            @Html.ActionLink("Back to List", "Index", "Home", "", new {@class = "button-custom-test btn"})
 
                         </dd>
                     </dl>
                 </div>
-               
+
             </div>
         </div>
     </div>

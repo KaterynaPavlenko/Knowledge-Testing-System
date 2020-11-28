@@ -10,6 +10,7 @@ namespace KnowledgeTestingSystem.BLL.Interfaces
         /// </summary>
         /// <returns> Test collection</returns>
         IEnumerable<TestDTO> GetAll();
+
         /// <summary>
         ///     Get Test by name
         /// </summary>

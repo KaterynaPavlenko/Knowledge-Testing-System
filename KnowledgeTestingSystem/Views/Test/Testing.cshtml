@@ -16,8 +16,8 @@
         @Html.HiddenFor(x => x.Question[i].Id)
         <div class="form-group ">
             <div id="timer"></div>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <hr/>
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
             <div class="form-group">
                 @Html.DisplayFor(modelItem => Model.Question[i].Text)
 
@@ -39,15 +39,16 @@
                     // <input id=@answer.Id name="Id" type="hidden" value=@answer.Id />
                     <span>@Model.Question[i].Answer[j].Text</span>
 
-                    <br />
+                    <br/>
                 }
             </div>
         </div>
     }
     <div class="form-group">
-        <input class="btn btn-success" type="submit" value="Send" />
+        <input class="btn btn-success" type="submit" value="Send"/>
     </div>
 }
+
 @section scripts{
     @Scripts.Render("~/bundles/jquery")
     <script>
@@ -56,6 +57,7 @@
             startCountdown(@Model.TimeMinutes);
 
         });
+
         function startCountdown(timeLeft) {
             var time = timeLeft * 60;
             var interval = setInterval(countdown, 1000);
@@ -74,7 +76,7 @@
             function update() {
                 var seconds = time % 60;
                 var minutes = Math.floor(time / 60) % 60;
-                var hours = Math.floor(time / 60 /60);
+                var hours = Math.floor(time / 60 / 60);
 
                 document.getElementById('timer').innerHTML = '' + hours + ':' + minutes + ':' + seconds;
             }
@@ -85,12 +87,6 @@
             }
 
         }
-
-    @*function countdown() {
-    }
-
-    setTimeout(
-        function () { countdown({}); }, time);*@
     </script>
 
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using KnowledgeTestingSystem.BLL.DTOs;
 using KnowledgeTestingSystem.BLL.Interfaces;
@@ -24,22 +23,22 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
         {
             themesOfTestsList = new List<ThemeOfTest>
             {
-                 new ThemeOfTest
+                new ThemeOfTest
                 {
-                Id = 1,
-                Theme = "ThemeOfTest 1"
-            },
-           new ThemeOfTest
-            {
-                Id = 2,
-                Theme = "ThemeOfTest 2"
-            },
-                 new ThemeOfTest
-            {
-                Id = 3,
-                Theme = "ThemeOfTest 3"
-            }
-        };
+                    Id = 1,
+                    Theme = "ThemeOfTest 1"
+                },
+                new ThemeOfTest
+                {
+                    Id = 2,
+                    Theme = "ThemeOfTest 2"
+                },
+                new ThemeOfTest
+                {
+                    Id = 3,
+                    Theme = "ThemeOfTest 3"
+                }
+            };
             // Create a new mock of the repository
             _themeOfTestRepository = new Mock<IRepository<ThemeOfTest>>();
             _unitOfWork = new Mock<IUnitOfWork>();
@@ -90,7 +89,8 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                 Id = 1,
                 Theme = "ThemeOfTest 1"
             };
-            _unitOfWork.Setup(m => m.ThemesOfTest.GetById(themeOfTestDto.Id)).Returns(themesOfTestsList.FirstOrDefault(x => x.Id == themeOfTestDto.Id));
+            _unitOfWork.Setup(m => m.ThemesOfTest.GetById(themeOfTestDto.Id))
+                .Returns(themesOfTestsList.FirstOrDefault(x => x.Id == themeOfTestDto.Id));
             _unitOfWork.Setup(m => m.ThemesOfTest.Update(It.IsAny<ThemeOfTest>()));
             // Act
             _themeOfTestService.Update(themeOfTestDto);
@@ -106,7 +106,8 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             //Arrange
             var DeletedID = 1;
             _unitOfWork.Setup(m => m.ThemesOfTest.Delete(DeletedID));
-            _unitOfWork.Setup(m => m.ThemesOfTest.GetById(DeletedID)).Returns(themesOfTestsList.FirstOrDefault(x => x.Id == DeletedID));
+            _unitOfWork.Setup(m => m.ThemesOfTest.GetById(DeletedID))
+                .Returns(themesOfTestsList.FirstOrDefault(x => x.Id == DeletedID));
             // Act
             _themeOfTestService.Delete(DeletedID);
             // Assert
@@ -121,16 +122,16 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             var themeOfTestDto = new ThemeOfTestDTO
             {
                 Id = 4,
-                Theme = "ThemeOfTest 1",
+                Theme = "ThemeOfTest 1"
             };
             _unitOfWork.Setup(x => x.ThemesOfTest.Create(It.IsAny<ThemeOfTest>()));
-            _unitOfWork.Setup(m => m.ThemesOfTest.GetById(themeOfTestDto.Id)).Returns(themesOfTestsList.FirstOrDefault(x => x.Id == themeOfTestDto.Id));
+            _unitOfWork.Setup(m => m.ThemesOfTest.GetById(themeOfTestDto.Id))
+                .Returns(themesOfTestsList.FirstOrDefault(x => x.Id == themeOfTestDto.Id));
             // Act
             _themeOfTestService.Create(themeOfTestDto);
             // Assert
             _unitOfWork.Verify(v => v.ThemesOfTest.Create(It.IsAny<ThemeOfTest>()), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
         }
-
     }
 }

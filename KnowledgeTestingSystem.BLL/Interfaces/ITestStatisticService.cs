@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using KnowledgeTestingSystem.BLL.DTOs;
 
 namespace KnowledgeTestingSystem.BLL.Interfaces
@@ -27,7 +23,7 @@ namespace KnowledgeTestingSystem.BLL.Interfaces
         ///     Update a TestStatistic using a Test Id
         /// </summary>
         /// <param name="testId"> Test id</param>
-        void Update( int testId);
+        void Update(int testId);
 
         /// <summary>
         ///     Delete a TestStatistic by id

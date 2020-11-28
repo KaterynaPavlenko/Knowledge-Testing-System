@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
 using KnowledgeTestingSystem.BLL.DTOs;
@@ -27,21 +28,31 @@ namespace KnowledgeTestingSystem.Controllers
                 page = 1;
             else
                 searchString = currentFilter;
-            var testsList = _testService.GetAll().ToList();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
-            var tests = mapper.Map<IEnumerable<TestDTO>, IEnumerable<TestViewModel>>(testsList);
-            if (!string.IsNullOrEmpty(searchString))
-                tests = tests.Where(s =>
-                    s.Name.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    s.ThemeOfTest.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0);
-            //Contains(searchString)||s.Name.ToLower().Contains(searchString)||s.Name.ToUpper().Contains(searchString)
-            //  || s.ThemeOfTest.Contains(searchString)|| s.ThemeOfTest.ToLower().Contains(searchString) || s.ThemeOfTest.ToUpper().Contains(searchString));
-            var pageSize = 3;
-            var testInPages = tests.Skip((page - 1) * pageSize).Take(pageSize);
-            var pageViewModel = new PageViewModel {PageNumber = page, PageSize = pageSize, TotalItems = tests.Count()};
-            var ipvm = new IndexPageViewModel {PageViewModel = pageViewModel, Tests = testInPages};
-            return View(ipvm);
+            try
+            {
+                var testsList = _testService.GetAll();
+                if (testsList == null) return HttpNotFound();
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestDTO, TestViewModel>()).CreateMapper();
+                var tests = mapper.Map<IEnumerable<TestDTO>, IEnumerable<TestViewModel>>(testsList);
+                if (!string.IsNullOrEmpty(searchString))
+                    tests = tests.Where(s =>
+                        s.Name.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                        s.ThemeOfTest.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0);
+                //Contains(searchString)||s.Name.ToLower().Contains(searchString)||s.Name.ToUpper().Contains(searchString)
+                //  || s.ThemeOfTest.Contains(searchString)|| s.ThemeOfTest.ToLower().Contains(searchString) || s.ThemeOfTest.ToUpper().Contains(searchString));
+                var pageSize = 3;
+                var testInPages = tests.Skip((page - 1) * pageSize).Take(pageSize);
+                var pageViewModel = new PageViewModel
+                    {PageNumber = page, PageSize = pageSize, TotalItems = tests.Count()};
+                var ipvm = new IndexPageViewModel {PageViewModel = pageViewModel, Tests = testInPages};
+                return View(ipvm);
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
+
         [HttpGet]
         public ActionResult About()
         {
@@ -49,6 +60,7 @@ namespace KnowledgeTestingSystem.Controllers
 
             return View();
         }
+
         [HttpGet]
         public ActionResult Contact()
         {

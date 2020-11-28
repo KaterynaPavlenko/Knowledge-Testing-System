@@ -406,13 +406,12 @@
     <Content Include="Views\Test\NotCompleteTest.cshtml" />
     <Content Include="Views\Test\CompleteTest.cshtml" />
     <Content Include="Views\Test\Test.cshtml" />
-    <Content Include="Views\Test\GetTests.cshtml" />
+    <Content Include="Views\Test\Tests.cshtml" />
     <Content Include="Views\Test\CreateTest.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Test\DeleteTest.cshtml" />
     <Content Include="Views\Test\UpdateTest.cshtml" />
     <Content Include="Views\Question\CreateQuestion.cshtml" />
-    <Content Include="Views\Test\CreateTestDetails.cshtml" />
     <Content Include="Views\Answer\CreateAnswer.cshtml" />
     <Content Include="Views\Admin\UserStatistic.cshtml" />
     <Content Include="Views\Manage\UserStatistic.cshtml" />

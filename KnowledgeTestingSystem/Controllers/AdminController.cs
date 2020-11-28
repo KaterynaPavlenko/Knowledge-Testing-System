@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
 using KnowledgeTestingSystem.BLL.DTOs;
@@ -8,14 +8,15 @@ using KnowledgeTestingSystem.Models;
 
 namespace KnowledgeTestingSystem.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator, Manager")]
     public class AdminController : Controller
     {
-        private ITestService _testService;
-        private readonly IUserStatisticService _userStatisticService;
+        private readonly ITestService _testService;
         private readonly ITestStatisticService _testStatisticService;
+        private readonly IUserStatisticService _userStatisticService;
 
-        public AdminController(IUserStatisticService userStatisticService,ITestService testService,ITestStatisticService testStatisticService)
+        public AdminController(IUserStatisticService userStatisticService, ITestService testService,
+            ITestStatisticService testStatisticService)
         {
             _userStatisticService = userStatisticService;
             _testStatisticService = testStatisticService;
@@ -28,46 +29,61 @@ namespace KnowledgeTestingSystem.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public ActionResult UserStatistic()
         {
-            var userStatistic = _userStatisticService.GetAll().ToList();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserStatisticDTO, UserStatisticViewModel>())
-                .CreateMapper();
-            var userStatisticViewModel =
-                mapper.Map<IEnumerable<UserStatisticDTO>, IEnumerable<UserStatisticViewModel>>(userStatistic);
-
-            return View(userStatisticViewModel);
+            try
+            {
+                var userStatistic = _userStatisticService.GetAll();
+                if (userStatistic == null) return HttpNotFound();
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserStatisticDTO, UserStatisticViewModel>())
+                    .CreateMapper();
+                var userStatisticViewModel =
+                    mapper.Map<IEnumerable<UserStatisticDTO>, IEnumerable<UserStatisticViewModel>>(userStatistic);
+                return View(userStatisticViewModel);
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
+
         [HttpGet]
         public ActionResult TestStatistic()
         {
-            var testStatistic = _testStatisticService.GetAll().ToList();
+            try
+            {
+                var testStatistic = _testStatisticService.GetAll();
+                if (testStatistic == null) return HttpNotFound();
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestStatisticDTO, TestStatisticViewModel>())
+                    .CreateMapper();
+                var testStatisticModel =
+                    mapper.Map<IEnumerable<TestStatisticDTO>, IEnumerable<TestStatisticViewModel>>(testStatistic);
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestStatisticDTO, TestStatisticViewModel>())
-                .CreateMapper();
-            var testStatisticModel =
-                mapper.Map<IEnumerable<TestStatisticDTO>, IEnumerable<TestStatisticViewModel>>(testStatistic);
-
-            return View(testStatisticModel);
+                return View(testStatisticModel);
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
+
         [HttpPost]
         [ActionName("TestStatistic")]
         public ActionResult UpdateStatistic()
         {
-            var tests = _testService.GetAll().ToList();
-            foreach (var test in tests)
+            try
             {
-                _testStatisticService.Update(test.Id);
+                var tests = _testService.GetAll();
+                if (tests == null) return HttpNotFound();
+                foreach (var test in tests) _testStatisticService.Update(test.Id);
+                return RedirectToAction("TestStatistic");
             }
-            var testStatistic = _testStatisticService.GetAll().ToList();
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TestStatisticDTO, TestStatisticViewModel>())
-                .CreateMapper();
-            var testStatisticModel =
-                mapper.Map<IEnumerable<TestStatisticDTO>, IEnumerable<TestStatisticViewModel>>(testStatistic);
-
-            return View(testStatisticModel);
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

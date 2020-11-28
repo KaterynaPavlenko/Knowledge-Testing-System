@@ -12,8 +12,8 @@ namespace KnowledgeTestingSystem.DAL.Repositories
         private IQuestionTypeRepository _questionTypeRepository;
         private IUserStatisticRepository _statisticRepository;
         private ITestRepository _testRepository;
-        private IThemeOfTestRepository _themeOfTestRepository;
         private ITestStatisticRepository _testStatisticRepository;
+        private IThemeOfTestRepository _themeOfTestRepository;
 
         private bool disposed;
 
@@ -52,6 +52,7 @@ namespace KnowledgeTestingSystem.DAL.Repositories
                 return _questionRepository;
             }
         }
+
         /// <summary>
         ///     Gets the specified repository for the Question
         /// </summary>
@@ -59,7 +60,7 @@ namespace KnowledgeTestingSystem.DAL.Repositories
         {
             get
             {
-                if (_testStatisticRepository== null)
+                if (_testStatisticRepository == null)
                     _testStatisticRepository = new TestStatisticRepository(_testingSystemDbContext);
                 return _testStatisticRepository;
             }

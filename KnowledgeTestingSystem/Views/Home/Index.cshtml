@@ -1,5 +1,5 @@
-﻿@model KnowledgeTestingSystem.Models.IndexPageViewModel
-@using KnowledgeTestingSystem.Helpers
+﻿@using KnowledgeTestingSystem.Helpers
+@model KnowledgeTestingSystem.Models.IndexPageViewModel
 @{
     ViewBag.Title = "Home Page";
 }
@@ -11,11 +11,11 @@
     </p>
 </div>
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
+@using (Html.BeginForm("Index", "Home", FormMethod.Get, new {@class = "form-inline my-2 my-lg-0"}))
 {
     <p>
-        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control mr-sm-2", placeholder = "Search" })
-        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new {@class = "form-control mr-sm-2", placeholder = "Search"})
+        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search"/>
     </p>
 }
 <div class="container pt-4">
@@ -50,23 +50,15 @@
                             @Html.DisplayFor(modelItem => item.TimeMinutes)
                         </p>
                         <div class="btn-group">
-                            @Html.ActionLink("Start", "InformAboutTest", "Test", new { item.Id }, new { @class = "btn btn-outline-success my-2 my-sm-0" })
-                            @*<input type="hidden" value=@item.Id name="id">
-                                <input class="btn btn-light" type="submit" value="Take" />*@
+                            @Html.ActionLink("Start", "InformAboutTest", "Test", new {item.Id}, new {@class = "btn btn-outline-success my-2 my-sm-0"})
                         </div>
                     </div>
                 </div>
             }
         }
-        <br />
-        @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
-
-        @*@Html.PagedListPager(Model, page => Url.Action("Index",
-            new { page, currentFilter = ViewBag.CurrentFilter, @class = "page-item" }))*@
+        <br/>
     </div>
     <div class="btn-group">
-        @Html.PageLinks(Model.PageViewModel, x => Url.Action("Index", new { page = x, currentFilter = ViewBag.CurrentFilter, @class = "page-item" }))
+        @Html.PageLinks(Model.PageViewModel, x => Url.Action("Index", new {page = x, currentFilter = ViewBag.CurrentFilter, @class = "page-item"}))
     </div>
 </div>
-
-

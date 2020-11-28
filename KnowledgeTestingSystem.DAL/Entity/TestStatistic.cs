@@ -10,6 +10,5 @@ namespace KnowledgeTestingSystem.DAL.Entity
         public int AveragePercentCorrectAnswer { get; set; }
         public int TestId { get; set; }
         public virtual Test Test { get; set; }
-
     }
 }

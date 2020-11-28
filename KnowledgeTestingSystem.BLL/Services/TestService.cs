@@ -5,7 +5,6 @@ using KnowledgeTestingSystem.BLL.Infrastructure;
 using KnowledgeTestingSystem.BLL.Interfaces;
 using KnowledgeTestingSystem.DAL.Entity;
 using KnowledgeTestingSystem.DAL.Repositories.Interfaces;
-using Ninject.Infrastructure.Language;
 
 namespace KnowledgeTestingSystem.BLL.Services
 {
@@ -26,14 +25,16 @@ namespace KnowledgeTestingSystem.BLL.Services
             {
                 theme = new ThemeOfTest {Theme = test.ThemeOfTest};
                 _unitOfWork.ThemesOfTest.Create(theme);
-                test.ThemeOfTestId=_unitOfWork.ThemesOfTest.GetByTheme(theme.Theme).Id;
+                _unitOfWork.Save();
+                test.ThemeOfTestId = _unitOfWork.ThemesOfTest.GetByTheme(theme.Theme).Id;
             }
+
             _unitOfWork.Tests.Create(new Test
             {
                 ThemeOfTestId = test.ThemeOfTestId,
                 Name = test.Name,
                 CoverImage = test.CoverImage,
-                TimeMinutes = test.TimeMinutes,
+                TimeMinutes = test.TimeMinutes
             });
             _unitOfWork.Save();
         }
@@ -81,9 +82,10 @@ namespace KnowledgeTestingSystem.BLL.Services
                 TimeMinutes = testEntity.TimeMinutes,
                 CoverImage = testEntity.CoverImage,
                 ThemeOfTest = testEntity.ThemeOfTest?.Theme
-        };
+            };
             return test;
         }
+
         public TestDTO GetByName(string name)
         {
             var testEntity = _unitOfWork.Tests.GetByName(name);
@@ -99,17 +101,18 @@ namespace KnowledgeTestingSystem.BLL.Services
             };
             return test;
         }
+
         public void Update(TestDTO testDTO)
         {
             ThemeOfTest theme;
             var foundTheme = _unitOfWork.ThemesOfTest.GetAll().FirstOrDefault(x => x.Theme == testDTO.ThemeOfTest);
             if (foundTheme == null)
             {
-                theme = new ThemeOfTest { Theme = testDTO.ThemeOfTest };
+                theme = new ThemeOfTest {Theme = testDTO.ThemeOfTest};
                 _unitOfWork.ThemesOfTest.Create(theme);
                 testDTO.ThemeOfTestId = _unitOfWork.ThemesOfTest.GetByTheme(theme.Theme).Id;
-
             }
+
             var test = new Test
             {
                 Id = testDTO.Id,

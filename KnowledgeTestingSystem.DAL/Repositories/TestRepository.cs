@@ -14,6 +14,7 @@ namespace KnowledgeTestingSystem.DAL.Repositories
         public TestRepository(TestingSystemDbContext testingSystemDbContext) : base(testingSystemDbContext)
         {
         }
+
         public Test GetByName(string testName)
         {
             return GetAll().FirstOrDefault(e => e.Name == testName);

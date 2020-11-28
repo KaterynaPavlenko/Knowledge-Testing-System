@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
-using KnowledgeTestingSystem.BLL.DTOs;
 using KnowledgeTestingSystem.BLL.Interfaces;
 using KnowledgeTestingSystem.BLL.Services;
 using KnowledgeTestingSystem.DAL.Entity;
@@ -12,14 +10,14 @@ using Moq;
 namespace KnowledgeTestingSystem.Tests.ServiceTest
 {
     [TestClass]
-    public class TestServiceTest 
+    public class TestServiceTest
     {
         private Mock<IRepository<Test>> _testRepository;
-        private Mock<IRepository<ThemeOfTest>> _themeOfTestRepository;
         private ITestService _testService;
+        private Mock<IRepository<ThemeOfTest>> _themeOfTestRepository;
+        private IThemeOfTestService _themeOfTestService;
         private Mock<IUnitOfWork> _unitOfWork;
         private List<Test> tests;
-        private IThemeOfTestService _themeOfTestService;
         private List<ThemeOfTest> themesOfTestsList;
 
         [TestInitialize]
@@ -51,7 +49,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                     Name = "Test_1",
                     ThemeOfTestId = 1,
                     ThemeOfTest = new ThemeOfTest()
-
                 },
                 new Test
                 {
@@ -99,11 +96,11 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             {
                 Id = 1,
                 Name = "Test_1",
-                ThemeOfTestId = 1,
+                ThemeOfTestId = 1
             };
 
             _unitOfWork.Setup(m => m.Tests.GetById(expectedTest.Id)).Returns(expectedTest);
-                // Act
+            // Act
             var actual = _testService.GetById(expectedTest.Id);
 
             //Assert
@@ -112,7 +109,6 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             Assert.AreEqual(expectedTest.Id, actual.Id); //assert that actual result was as expected
         }
 
-     
 
         [TestMethod]
         public void TestService_Can_Delete_Test()
@@ -120,15 +116,12 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             //Arrange
             var DeletedID = 1;
             _unitOfWork.Setup(m => m.Tests.Delete(DeletedID));
-            _unitOfWork.Setup(m => m.Tests.GetById(DeletedID)).Returns(tests.FirstOrDefault(x=>x.Id==DeletedID));
+            _unitOfWork.Setup(m => m.Tests.GetById(DeletedID)).Returns(tests.FirstOrDefault(x => x.Id == DeletedID));
             // Act
             _testService.Delete(DeletedID);
             // Assert
             _unitOfWork.Verify(v => v.Tests.Delete(DeletedID), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
         }
-
-      
-
     }
 }

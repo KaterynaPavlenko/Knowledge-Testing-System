@@ -44,14 +44,13 @@ namespace KnowledgeTestingSystem.BLL.Services
             var questions = new List<QuestionDTO>();
             foreach (var questionEntity in entities)
             {
-                
                 var question = new QuestionDTO
                 {
                     Text = questionEntity.Text,
                     Id = questionEntity.Id,
                     Image = questionEntity.Image,
                     QuestionsTypesId = questionEntity.QuestionsTypesId,
-                    TestId = questionEntity.TestId,
+                    TestId = questionEntity.TestId
                 };
                 questions.Add(question);
             }

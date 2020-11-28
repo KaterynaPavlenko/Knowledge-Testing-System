@@ -56,8 +56,8 @@ namespace KnowledgeTestingSystem.BLL.Services
                     PercentCorrectAnswer = statisticEntity.PercentCorrectAnswer,
                     UserEntityId = statisticEntity.UserEntityId,
                     TestId = statisticEntity.TestId,
-                    Test = statisticEntity.Test.Name
-
+                    Test = statisticEntity.Test.Name,
+                    User = statisticEntity.UserEntity.Email
                 };
                 statisticsList.Add(statistic);
             }

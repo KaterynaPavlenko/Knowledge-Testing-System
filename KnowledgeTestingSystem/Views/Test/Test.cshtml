@@ -56,10 +56,8 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            @Html.HiddenFor(x => x.Id)
-            <input type="submit" value="Delete" class="btn btn-default"/> |
-            @Html.ActionLink("Back to List", "GetTests")
-        </div>
+        @Html.HiddenFor(x => x.Id)
+        <input type="submit" value="Delete" class="btn btn-light"/>
+        @Html.ActionLink("Back to List", "Tests")
     }
 </div>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using KnowledgeTestingSystem.BLL.DTOs;
 using KnowledgeTestingSystem.BLL.Interfaces;
@@ -24,22 +23,22 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
         {
             questionTypes = new List<QuestionType>
             {
-                 new QuestionType
+                new QuestionType
                 {
-                Id = 1,
-                Type = "QuestionType 1"
-            },
-           new QuestionType
-            {
-                Id = 2,
-                Type = "QuestionType 2"
-            },
-                 new QuestionType
-            {
-                Id = 3,
-                Type = "QuestionType 3"
-            }
-        };
+                    Id = 1,
+                    Type = "QuestionType 1"
+                },
+                new QuestionType
+                {
+                    Id = 2,
+                    Type = "QuestionType 2"
+                },
+                new QuestionType
+                {
+                    Id = 3,
+                    Type = "QuestionType 3"
+                }
+            };
             // Create a new mock of the repository
             _questionTypeRepository = new Mock<IRepository<QuestionType>>();
             _unitOfWork = new Mock<IUnitOfWork>();
@@ -65,7 +64,7 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
         public void QuestionTypeService_Can_GetById_Valid_QuestionType()
         {
             //Arrange
-            var expectedQuestionType= new QuestionType
+            var expectedQuestionType = new QuestionType
             {
                 Id = 1,
                 Type = "QuestionType 1"
@@ -90,7 +89,8 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
                 Id = 1,
                 Type = "QuestionType 1"
             };
-            _unitOfWork.Setup(m => m.QuestionTypes.GetById(questionTypeDto.Id)).Returns(questionTypes.FirstOrDefault(x => x.Id == questionTypeDto.Id));
+            _unitOfWork.Setup(m => m.QuestionTypes.GetById(questionTypeDto.Id))
+                .Returns(questionTypes.FirstOrDefault(x => x.Id == questionTypeDto.Id));
             _unitOfWork.Setup(m => m.QuestionTypes.Update(It.IsAny<QuestionType>()));
             // Act
             _questionTypeService.Update(questionTypeDto);
@@ -106,7 +106,8 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             //Arrange
             var DeletedID = 1;
             _unitOfWork.Setup(m => m.QuestionTypes.Delete(DeletedID));
-            _unitOfWork.Setup(m => m.QuestionTypes.GetById(DeletedID)).Returns(questionTypes.FirstOrDefault(x => x.Id == DeletedID));
+            _unitOfWork.Setup(m => m.QuestionTypes.GetById(DeletedID))
+                .Returns(questionTypes.FirstOrDefault(x => x.Id == DeletedID));
             // Act
             _questionTypeService.Delete(DeletedID);
             // Assert
@@ -121,16 +122,16 @@ namespace KnowledgeTestingSystem.Tests.ServiceTest
             var questionTypeDto = new QuestionTypeDTO
             {
                 Id = 4,
-                Type = "QuestionType 1",
+                Type = "QuestionType 1"
             };
             _unitOfWork.Setup(x => x.QuestionTypes.Create(It.IsAny<QuestionType>()));
-            _unitOfWork.Setup(m => m.QuestionTypes.GetById(questionTypeDto.Id)).Returns(questionTypes.FirstOrDefault(x => x.Id == questionTypeDto.Id));
+            _unitOfWork.Setup(m => m.QuestionTypes.GetById(questionTypeDto.Id))
+                .Returns(questionTypes.FirstOrDefault(x => x.Id == questionTypeDto.Id));
             // Act
             _questionTypeService.Create(questionTypeDto);
             // Assert
             _unitOfWork.Verify(v => v.QuestionTypes.Create(It.IsAny<QuestionType>()), Times.Once());
             _unitOfWork.Verify(x => x.Save(), Times.Once());
         }
-
     }
 }
