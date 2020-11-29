@@ -130,7 +130,7 @@ namespace KnowledgeTestingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new UserEntity {UserName = model.Email, Email = model.Email};
+                var user = new UserEntity {UserName = model.Email, Email = model.Email,LastName = model.LastName,FirstName = model.FirstName,PhoneNumber = model.PhoneNumber};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

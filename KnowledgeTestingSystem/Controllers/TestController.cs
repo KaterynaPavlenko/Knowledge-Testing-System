@@ -99,6 +99,10 @@ namespace KnowledgeTestingSystem.Controllers
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult CreateTest(TestViewModel testViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             try
             {
                 var fileName = Path.GetFileNameWithoutExtension(testViewModel.ImageFile.FileName);
@@ -155,6 +159,10 @@ namespace KnowledgeTestingSystem.Controllers
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult UpdateTest(TestViewModel testViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             try
             {
                 var fileName = Path.GetFileNameWithoutExtension(testViewModel.ImageFile.FileName);

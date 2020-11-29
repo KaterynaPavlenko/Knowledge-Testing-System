@@ -246,6 +246,11 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Image\american.jpg" />
+    <Content Include="Content\Image\compass.jpg" />
+    <Content Include="Content\Image\geometry.jpg" />
+    <Content Include="Content\Image\logo.png" />
+    <Content Include="Content\Image\questions-language.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -419,7 +424,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Image\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

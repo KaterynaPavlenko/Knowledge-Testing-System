@@ -76,7 +76,7 @@ namespace KnowledgeTestingSystem.DAL.Context
                     Name = "Second test",
                     ThemeOfTestId = 2,
                     TimeMinutes = 13,
-                    CoverImage = "~/Content/Image/compass.jpg"
+                    CoverImage = "~/Content/Image/american.jpg"
                 },
                 new Test
                 {
@@ -84,7 +84,7 @@ namespace KnowledgeTestingSystem.DAL.Context
                     Name = "Third test",
                     ThemeOfTestId = 1,
                     TimeMinutes = 17,
-                    CoverImage = "~/Content/Image/geometry.jpg"
+                    CoverImage = "~/Content/Image/questions-language.jpg"
                 },
                 new Test
                 {
@@ -149,9 +149,39 @@ namespace KnowledgeTestingSystem.DAL.Context
                 },
                 new Question
                 {
-                    Id = 4,
+                    Id = 5,
                     Text = "Где находится число 2 на координатной оси?",
-                    TestId = 1
+                    TestId = 2
+                },
+                new Question
+                {
+                    Id = 6,
+                    Text = "Что характеризует координатную ось?",
+                    TestId = 2
+                },
+                new Question
+                {
+                    Id = 7,
+                    Text = "Как расположено на координатной оси бОльшее из двух чисел?",
+                    TestId = 2
+                },
+                new Question
+                {
+                    Id = 8,
+                    Text = "Где находится число -2 на координатной оси?",
+                    TestId = 2
+                },
+                new Question
+                {
+                    Id = 9,
+                    Text = "Как сравнить две положительные дроби с одинаковыми числителями?",
+                    TestId = 2
+                },
+                new Question
+                {
+                    Id = 10,
+                    Text = "Где находится число 2 на координатной оси?",
+                    TestId = 2
                 }
             };
             questionList.ForEach(std => context.Questions.Add(std));
@@ -270,6 +300,120 @@ namespace KnowledgeTestingSystem.DAL.Context
                     Text = " В начале координат",
                     IsCorrect = false,
                     QuestionId = 5
+                },
+
+
+                 new Answer
+                {
+                    Id = 18,
+                    Text = "Начало координат",
+                    QuestionId = 6,
+                    IsCorrect = true
+                },
+                new Answer
+                {
+                    Id = 19,
+                    Text = "Начало координат, единица масштаба и направление",
+                    IsCorrect = true,
+                    QuestionId = 6
+                },
+                new Answer
+                {
+                    Id = 20,
+                    Text = "Направление",
+                    IsCorrect = false,
+                    QuestionId = 1
+                },
+                new Answer
+                {
+                    Id = 21,
+                    Text = "Единица масштаба",
+                    IsCorrect = false,
+                    QuestionId = 6
+                },
+                new Answer
+                {
+                    Id = 22,
+                    Text = "Правее",
+                    IsCorrect = true,
+                    QuestionId = 7
+                },
+                new Answer
+                {
+                    Id = 23,
+                    Text = "Левее",
+                    IsCorrect = false,
+                    QuestionId = 7
+                },
+                new Answer
+                {
+                    Id = 24,
+                    Text = " В начале координат",
+                    IsCorrect = false,
+                    QuestionId = 7
+                },
+                new Answer
+                {
+                    Id = 25,
+                    Text = " Может располагаться левее и правее, в зависимости от чисел",
+                    IsCorrect = false,
+                    QuestionId = 7
+                },
+                new Answer
+                {
+                    Id = 26,
+                    Text = "Правее нуля",
+                    IsCorrect = false,
+                    QuestionId = 8
+                },
+                new Answer
+                {
+                    Id = 27,
+                    Text = " Левее нуля",
+                    IsCorrect = true,
+                    QuestionId = 8
+                },
+                new Answer
+                {
+                    Id = 28,
+                    Text = "Однозначного ответа на вопрос не существует",
+                    IsCorrect = false,
+                    QuestionId = 8
+                },
+                new Answer
+                {
+                    Id = 29,
+                    Text = "Правее нуля",
+                    IsCorrect = false,
+                    QuestionId = 8
+                },
+                new Answer
+                {
+                    Id = 30,
+                    Text = "Больше будет та дробь, знаменатель которой меньше",
+                    IsCorrect = true,
+                    QuestionId = 9
+                },
+                new Answer
+                {
+                    Id = 31,
+                    Text = "Дроби будут одинаковы",
+                    IsCorrect = false,
+                    QuestionId = 9
+                },
+                new Answer
+                {
+                    Id = 32,
+                    Text = "Правее нуля",
+                    IsCorrect = true,
+                    QuestionId = 9
+                },
+                new Answer
+                {
+                    Id = 33,
+                    Text = " В начале координат",
+                    IsCorrect = false,
+                    QuestionId = 10
                 }
             };
             answers.ForEach(std => context.Answers.Add(std));
